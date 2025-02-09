@@ -1,9 +1,7 @@
 "use client";
-
 import { useState } from "react";
 import Sidebar from "./Sidebar";
-
-const SidebarWrapper = () => {
+const SidebarWrapper = ({session}) => {
     const [isOpen, setIsOpen] = useState(true);
     // const toggleSidebar = () => setIsOpen(!isOpen);
     return (
@@ -14,9 +12,9 @@ const SidebarWrapper = () => {
             >
                 {isOpen ? "Close" : "Open"}
             </button> */}
-            <Sidebar isOpen={isOpen}  />
+            <Sidebar isOpen={isOpen} session={session}  />
         </>
     );
 };
-
+ 
 export default SidebarWrapper;

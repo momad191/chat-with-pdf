@@ -3,7 +3,7 @@ import SocialLogins from "./SocialLogins";
 import { useRouter } from "next/navigation";
 import { AiOutlineUser, AiOutlineMail, AiOutlineLock, AiOutlineArrowLeft} from "react-icons/ai";
 import Link from 'next/link'
-
+ 
 const RegistrationForm = () => {
     const router = useRouter();
 

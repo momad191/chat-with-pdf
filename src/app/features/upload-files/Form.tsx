@@ -1,7 +1,6 @@
-'use client'
+"use client";
 import { useRouter } from "next/navigation";
-import { useState } from 'react';
-
+import { useState } from "react";
 
 export default function UploadForm() {
   const router = useRouter();
@@ -21,23 +20,22 @@ export default function UploadForm() {
     setResponseMessage(null);
 
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append("file", file);
 
     try {
-      const res = await fetch('/api/upload-file', {
-        method: 'POST',
+      const res = await fetch("/api/upload-file", {
+        method: "POST",
         body: formData,
       });
- 
+
       const result = await res.json();
       if (result.success) {
         setResponseMessage(`File uploaded successfully! URL: ${result.url}`);
         router.push("/dashboard/files");
-        
       } else {
-        setResponseMessage(`Error: ${result.error || 'Upload failed'}`);
+        setResponseMessage(`Error: ${result.error || "Upload failed"}`);
       }
-    } catch (error:any) {
+    } catch (error: any) {
       setResponseMessage(`Error: ${error.message}`);
     } finally {
       setIsUploading(false);
@@ -45,35 +43,48 @@ export default function UploadForm() {
   };
 
   return (
-    <div className="">
+    <div className="flex justify-center items-center min-h-screen">
       <form
         onSubmit={onSubmit}
-        className="bg-white text-gray-800 rounded-lg shadow-lg p-6  flex flex-col gap-4"
+        className="bg-white text-gray-800 rounded-lg shadow-lg p-6 flex flex-col gap-4 w-full max-w-md"
       >
-        <h2 className="text-2xl font-bold text-center">الدردشة مع بياناتك</h2>
+        <h2 className="text-2xl font-bold text-center">Upload your PDF File</h2>
+
         <input
           type="file"
           name="file"
           onChange={(e) => setFile(e.target.files?.[0] || null)}
           className="block w-full border border-gray-300 rounded-md p-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-sky-500 transition"
+          disabled={isUploading}
         />
+
         <button
           type="submit"
           disabled={isUploading}
-          className={`w-full py-2 rounded-md text-white font-semibold ${
-            isUploading ? 'bg-gray-400' : 'bg-sky-500 hover:bg-sky-600'
-          } transition`}
+          className={`w-full py-2 flex justify-center items-center rounded-md text-white font-semibold transition ${
+            isUploading ? "bg-gray-400 cursor-not-allowed" : "bg-sky-500 hover:bg-sky-600"
+          }`}
         >
-          {isUploading ? 'Uploading...' : 'Upload'}
+          {isUploading ? (
+            <>
+              <svg
+                className="animate-spin h-5 w-5 mr-2 border-white border-t-2 border-l-2 rounded-full"
+                viewBox="0 0 24 24"
+              ></svg>
+              Uploading...
+            </>
+          ) : (
+            "Upload"
+          )}
         </button>
       </form>
 
       {responseMessage && (
         <div
           className={`mt-4 p-4 rounded-lg shadow-lg text-center max-w-md w-full ${
-            responseMessage.startsWith('File uploaded successfully!')
-              ? 'bg-green-500'
-              : 'bg-red-500'
+            responseMessage.startsWith("File uploaded successfully!")
+              ? "bg-green-500 text-white"
+              : "bg-red-500 text-white"
           }`}
         >
           {responseMessage}

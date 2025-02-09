@@ -12,21 +12,21 @@ export default function Home() {
           {/* Welcome Text */}
           <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-4 transform transition-all duration-700 ease-in-out animate-bounce">
              
-          Manage Your Daily Tasks Effortlessly
+          Chat with your PDF files 
           </h1>
           <p className="text-lg text-gray-600 mb-8">
-          Chat with your PDF files 
-           </p>
+          Let AI summarize, find information, translate, transcribe, and get citations from your files in seconds. Works in 90+ languages. 
+          </p>
 
           {/* Features Section */}
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             {/* Feature 1 */}
             <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all">
-              <h3 className="text-2xl font-semibold mb-2 text-green-500">
-              Add New Files
+              <h3 className="text-2xl font-semibold mb-2 text-blue-500">
+              Upload your Files
            
               </h3>
-              <p className="text-gray-600">
+              <p className="text-black font-bold">
               Easily add your files and start chat and summaraize them.
                 
               </p>
@@ -34,23 +34,22 @@ export default function Home() {
 
             {/* Feature 2 */}
             <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all">
-              <h3 className="text-2xl font-semibold mb-2 text-green-500">
-              Track Your Progress
+              <h3 className="text-2xl font-semibold mb-2 text-blue-500">
+              Ask Questions
                 
               </h3>
-              <p className="text-gray-600">
-                Keep track of completed tasks and see your progress at a glance.
+              <p className="text-black font-bold">
+              Ask AI any question about your document. 
               </p>
             </div>
 
             {/* Feature 3 */}
             <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all">
-              <h3 className="text-2xl font-semibold mb-2 text-green-500">
-                Real-Time Collaboration
+              <h3 className="text-2xl font-semibold mb-2 text-blue-500">
+              Get Answers
               </h3>
-              <p className="text-gray-600">
-                Collaborate with your team and assign tasks in real-time to stay
-                in sync.
+              <p className="text-black font-bold">
+              Get an answer from the document.
               </p>
             </div>
           </div>

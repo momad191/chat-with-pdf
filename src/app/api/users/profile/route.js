@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { dbConnect } from "@/lib/mongo";
 import { User } from "@/model/user-model";
 import { auth } from "@/auth";
-
+ 
 export async function GET() {
   try {
     await dbConnect();

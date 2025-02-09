@@ -1,7 +1,9 @@
 import { FaFolder, FaUser, FaCog } from "react-icons/fa";
 import Link from "next/link";
-const Sidebar = ({ isOpen }) => {
-    return (
+import Image from "next/image";
+import Logout from  "@/components/Logout";
+const Sidebar = ({ isOpen ,session }) => {
+    return (  
       <>  
             {/* Sidebar */}
             <div
@@ -9,12 +11,43 @@ const Sidebar = ({ isOpen }) => {
                     isOpen ? "translate-x-0" : "-translate-x-full"
                 } w-64`}
             >
-                <div className="p-4 border-b border-gray-700 flex items-center justify-between">
-                    <h2 className="text-xl font-semibold">Chat with PDFs</h2>
+                <div className="p-4 border-b border-gray-700  items-center justify-between">
+                    {/* <h2 className="text-xl font-semibold">Chat with PDFs</h2> */}
+
+                                {session?.user?.name && session?.user?.image ? (
+                                    <>
+                                      <Image
+                                            src={session?.user?.image}
+                                            alt={session?.user?.name}
+                                            width={72}
+                                            height={72}
+                                            className="rounded-full"
+                                        />
+                                        <h1 className="text-md  my-2">
+                                            Welcome, {session?.user?.name}
+                                        </h1>
+                                      
+                                    </>
+                                ) : (
+                                    <> 
+                                    <Image
+                                    src="/default-avatar.jpg"
+                                    alt="avatar"
+                                    width={72}
+                                    height={72}
+                                    className="rounded-full"
+                                />
+                                    <h1 className="text-sm my-2">
+                                        Welcome, {session?.user?.email}
+                                    </h1>
+                                    </>
+                                )}  
+                      
+
                 </div>
 
 
-                     
+                      
 
                 <nav className="p-4 space-y-2">
                     <Link
@@ -46,6 +79,7 @@ const Sidebar = ({ isOpen }) => {
                     >
                         <FaCog className="mr-3" size={18} /> App Settings
                     </Link>
+                    <Logout />
                 </nav>
             </div>
             </>

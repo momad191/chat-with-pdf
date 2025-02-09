@@ -1,9 +1,9 @@
-import React from 'react'
+import SettingUi from "./SettingUi"
 
 const route = () => {
   return (
-    <div>general-settings</div>
+    <SettingUi />
   )
 }
-
+ 
 export default route
