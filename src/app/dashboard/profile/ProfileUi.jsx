@@ -1,9 +1,12 @@
 "use client"; 
 import { useState, useEffect } from "react"; 
 import SidebarWrapper from "../../../components/SidebarWrapper";
+import { useRouter } from "next/navigation";
 
 
 export default function ProfileUi({session}) {
+
+  const router = useRouter();
   const [user, setUser] = useState({
     user_image: "",
     name: "", // Fix: was missing underscore in the UI code
@@ -36,12 +39,12 @@ export default function ProfileUi({session}) {
       .catch((error) => console.error("Failed to fetch profile:", error));
   }, []);
   
-
+ 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUser((prev) => ({ ...prev, [name]: value }));
   };
-
+   
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { email, ...updatedUserData } = user; // Remove email before sending
@@ -50,9 +53,10 @@ export default function ProfileUi({session}) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedUserData),
     });
-
+ 
     if (response.ok) {
       alert("Profile updated successfully");
+      router.push("/dashboard");
     } else {
       alert("Failed to update profile");
     }

@@ -28,7 +28,7 @@ const FilesTable = ({ session }) => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-screen">
-        <p className="text-lg font-semibold">Loading files...</p>
+        <p className="text-lg font-semibold">Loading...</p>
       </div>
     );
   }

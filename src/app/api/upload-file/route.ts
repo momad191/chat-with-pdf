@@ -1,15 +1,16 @@
 import { writeFile, mkdir } from 'fs/promises';
 import { NextRequest, NextResponse } from 'next/server';
-import { join } from 'path';
-
-
+import { join ,extname } from 'path';
+ 
 import { createFile } from "@/queries/files";
 import { dbConnect } from "@/lib/mongo";
-import { loadS3IntoPinecone } from "@/lib/pinecone"; 
+import { loadS3IntoPineconePDF } from "@/lib/pineconePDF";  
+import { loadS3IntoPineconeDOCX } from "@/lib/pineconeDOCX"; 
+import { loadS3IntoPineconeDOC } from "@/lib/pineconeDOC"; 
+import { loadS3IntoPineconeTEXT } from "@/lib/pineconeTEXT"; 
 // import { getS3Url } from "@/lib/s3";
 import { auth } from "@/auth";
- 
-   
+
 export async function POST(request: NextRequest) {
 
   await dbConnect()
@@ -26,6 +27,9 @@ export async function POST(request: NextRequest) {
   if (!file) {
     return NextResponse.json({ success: false, message: 'No file uploaded' });
   }
+
+  const fileExtension = extname(file.name);
+  console.log("File Extension:", fileExtension); // Logs the extracted extension
     
   const bytes = await file.arrayBuffer();
   const buffer = Buffer.from(bytes);
@@ -55,8 +59,20 @@ export async function POST(request: NextRequest) {
     await writeFile(filePath, buffer);
 
     // load the file into Pinecone
-    await loadS3IntoPinecone(file.name);
-
+    //  await loadS3IntoPineconePDF(file.name);
+    if(fileExtension === ".pdf"){
+      await loadS3IntoPineconePDF(file.name);
+    }
+     if(fileExtension === ".docx"){
+      await loadS3IntoPineconeDOCX(file.name);
+    } 
+    if(fileExtension === ".doc"){
+      await loadS3IntoPineconeDOC(file.name);
+    }
+     if(fileExtension === ".txt"){
+      await loadS3IntoPineconeTEXT(file.name);
+    }
+   
     await createFile(newFile);
 
     console.log(session)

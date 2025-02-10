@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { createUser } from "@/queries/users"; 
 import { dbConnect } from "@/lib/mongo";
 import bcrypt from "bcryptjs";
-
+ 
 export const POST = async (request) => {
   const {name, email, password} = await request.json();
 
