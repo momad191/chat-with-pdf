@@ -5,7 +5,7 @@ import {
   Document, 
   RecursiveCharacterTextSplitter,
 } from "@pinecone-database/doc-splitter";
-import { getEmbeddings } from "./embeddings";
+import { getEmbeddings } from "./embeddings"; 
 import { convertToAscii } from "./utils";
 import { auth } from "@/auth";
 export const getPineconeClient = () => {
@@ -14,7 +14,7 @@ export const getPineconeClient = () => {
     apiKey: process.env.PINECONE_API_KEY!,
   });
 };
-  
+
 type PDFPage = {
   pageContent: string;
   metadata: {
@@ -53,14 +53,14 @@ export async function loadS3IntoPineconeTEXT(fileKey: string) {
 
   return documents[0];
 }
-
+ 
 async function embedDocument(doc: Document) {
   try {
     const embeddings = await getEmbeddings(doc.pageContent);
     const hash = md5(doc.pageContent);
 
     return {
-      id: hash,
+      id: hash, 
       values: embeddings,
       metadata: {
         text: doc.metadata.text,
@@ -72,7 +72,7 @@ async function embedDocument(doc: Document) {
     throw error;
   }
 }
- 
+    
 export const truncateStringByBytes = (str: string, bytes: number) => {
     const enc = new TextEncoder();
     return new TextDecoder("utf-8").decode(enc.encode(str).slice(0, bytes));
@@ -83,12 +83,17 @@ async function prepareDocument(page: PDFPage) {
   let { pageContent, metadata } = page;
   pageContent = pageContent.replace(/\n/g, "");
   // split the docs
-  const splitter = new RecursiveCharacterTextSplitter();
+
+  const splitter = new RecursiveCharacterTextSplitter({
+    chunkSize: 1000,
+    chunkOverlap: 200,
+  });
+ 
   const docs = await splitter.splitDocuments([
     new Document({
       pageContent,
       metadata: {
-         text: truncateStringByBytes(pageContent, 120000),
+         text: pageContent,
       },
      
     }),

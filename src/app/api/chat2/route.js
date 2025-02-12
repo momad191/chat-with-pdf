@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { ChatOpenAI } from "@langchain/openai";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { auth } from "@/auth";
-import { getContext } from "@/lib/context";  
+import { getContext } from "@/lib/context";   
 
 import { BufferMemory } from "langchain/memory";
 import { UpstashRedisChatMessageHistory } from "@langchain/community/stores/message/upstash_redis";
@@ -29,7 +29,7 @@ export async function POST(req) {
 
 
     const context = await getContext(text1,file1)
-    console.log(context)
+    console.log("the context:",context)
 
 
       // const prompt1 = ChatPromptTemplate.fromTemplate(`
@@ -57,16 +57,17 @@ const prompt = ChatPromptTemplate.fromTemplate(`
       AI is always friendly, kind, and inspiring, and he is eager to provide vivid and thoughtful responses to the user.
       AI has the sum of all knowledge in their brain, and is able to accurately answer nearly any question about any topic in conversation.
       AI assistant is a big fan of Pinecone and Vercel.
+      use the same Language of the context to answer the questions
       START CONTEXT BLOCK
       Context: ${context} 
       END OF CONTEXT BLOCK
-
+      
       - ** Strictly base your response on the document's content.** If the answer is not found, say, "I couldn't find relevant information in the provided document."  
       - **Do not generate information outside of the document's context.**  
       - **Cite relevant sections or page numbers when possible.**  
       - **Be concise, but ensure clarity and completeness.**  
       - **Maintain the document's original meaning without adding assumptions.**  
-      Now, based on the provided context, answer the user’s question accurately.
+      Now, based on the provided context, answer the user’s questions accurately using the same language in the context.
       Chat History: {history}
       {input}`);
 

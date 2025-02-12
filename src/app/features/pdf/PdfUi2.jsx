@@ -3,7 +3,7 @@
  import React, { useState, useEffect, useRef } from "react";
  import { FaUser } from "react-icons/fa";
  import {Chat} from "./pdfAction"; 
- 
+     
 function PdfUi2 ({file_id}) {
   const [file, setFile] = useState({});
    const [isOpen, setIsOpen] = useState(false);
