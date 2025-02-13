@@ -1,17 +1,21 @@
 "use client";
 import { useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes, FaUserCircle  } from "react-icons/fa";
 import Link from "next/link";
+import Image from "next/image";
 
-const Navbar = () => {
+
+const Navbar = ({session}) => {
+     
     const [isOpen, setIsOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
     const toggleNavbar = () => setIsOpen(!isOpen);
     const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
+    const email = session?.user?.email;
 
     return (
-        <header className="bg-gray-800 text-white shadow-md sticky top-0 z-50 mb-8">
+        <header className="bg-gray-800 text-white shadow-md sticky top-0 z-50 ">
             <div className="container mx-auto px-4 flex justify-between items-center h-16">
                 {/* Logo */}
                 <h1 className="text-2xl font-bold">Chat with PDFs</h1>
@@ -54,14 +58,7 @@ const Navbar = () => {
                                 Features
                             </Link>
                         </li>
-                        <li>
-                            <Link
-                                href="/transcribe-audio"
-                                className="block py-2 px-4 rounded hover:bg-gray-700 md:hover:bg-transparent transition-all"
-                            >
-                                Transcribe Audio
-                            </Link>
-                        </li>
+                    
                         <li>
                             <Link
                                 href="/pricing"
@@ -82,18 +79,46 @@ const Navbar = () => {
                 </nav>
 
                 {/* Right Buttons */}
-                <div className="hidden md:flex space-x-4">
-                <Link href="/login" >
-                    <button className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600 focus:ring-4 focus:ring-gray-500 transition-all">
-                        Login
-                    </button>
-                    </Link>
-                    <Link href="/register" >
-                    <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 transition-all">
-                        Try for Free
-                    </button>
-                     </Link>
-                </div>
+                {session ?(
+                     <div className="hidden md:flex space-x-4">
+                   
+                         <Link href="/dashboard" >
+                         <button className="flex items-center justify-center gap-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 transition-all">
+                            {session?.user?.image?(
+                                 <Image
+                                 src={session?.user?.image}
+                                 alt={session?.user?.name}
+                                 width={32}
+                                 height={32}
+                                 className="rounded-full"
+                                />
+
+                            ):(
+                                <FaUserCircle />
+                            )}
+                           
+                              Dashboard
+                         </button>
+                          </Link>
+                     </div>
+                ):(
+                    <div className="hidden md:flex space-x-4">
+                    <Link href="/login" >
+                        <button className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600 focus:ring-4 focus:ring-gray-500 transition-all">
+                            Login
+                        </button>
+                        </Link>
+                        <Link href="/register" >
+                        <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 transition-all">
+                            Try for Free
+                        </button>
+                         </Link>
+                    </div>
+
+                )}
+               
+
+
             </div>
 
             {/* Dropdown for smaller screens */}

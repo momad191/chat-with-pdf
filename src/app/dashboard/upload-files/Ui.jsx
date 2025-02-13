@@ -28,9 +28,9 @@ const UploadFileUi = () => {
     setIsWORD(false)
 
   }
-
+ 
   return (
-    <div className=" flex flex-col w-full items-center justify-center bg-gradient-to-b ">
+    <div className=" flex flex-col w-full items-center justify-center bg-gradient-to-b   ">
     <div className="flex gap-10 items-center justify-center"> 
 
       <button onClick={changeToPDF} 

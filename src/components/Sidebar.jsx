@@ -2,6 +2,7 @@ import { FaFolder, FaUser, FaCog } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 import Logout from  "@/components/Logout";
+ 
 const Sidebar = ({ isOpen ,session }) => {
     return (  
       <>  

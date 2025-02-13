@@ -1,10 +1,16 @@
 import Navbar from "@/components/navbar"
 import Link from "next/link";
-export default function Home() {
+import { FaFileUpload } from "react-icons/fa";
+import { BsChatFill } from "react-icons/bs";
+import { BsChatDotsFill } from "react-icons/bs";
+import { auth } from "@/auth";
+ 
+export default async function Home() {
+  const session = await auth();
   return (
     <>
-    <Navbar />
-   
+    <Navbar session={session} />
+     
    <div className="min-h-screen flex flex-col">
       {/* Main Section */}
       <main className="flex-grow bg-gray-100 flex items-center justify-center text-center">
@@ -18,11 +24,16 @@ export default function Home() {
           Let AI summarize, find information, translate, transcribe, and get citations from your files in seconds. Works in 90+ languages. 
           </p>
 
+          <p className="text-lg text-gray-600 mb-8">
+          Your PDF AI - like ChatGPT but for PDFs. Summarize and answer questions
+          </p>
+
           {/* Features Section */}
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             {/* Feature 1 */}
             <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all">
               <h3 className="text-2xl font-semibold mb-2 text-blue-500">
+              <FaFileUpload /> 
               Upload your Files
            
               </h3>
@@ -35,6 +46,7 @@ export default function Home() {
             {/* Feature 2 */}
             <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all">
               <h3 className="text-2xl font-semibold mb-2 text-blue-500">
+                <BsChatFill />
               Ask Questions
                 
               </h3>
@@ -46,6 +58,7 @@ export default function Home() {
             {/* Feature 3 */}
             <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all">
               <h3 className="text-2xl font-semibold mb-2 text-blue-500">
+                <BsChatDotsFill />
               Get Answers
               </h3>
               <p className="text-black font-bold">

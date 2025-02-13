@@ -37,10 +37,10 @@ const RegistrationForm = () => {
     }
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen  px-1 sm:px-6 lg:px-3">
+        <div className="flex flex-col items-center justify-center min-h-screen  px-1 sm:px-6 lg:px-3 shadow-md rounded-lg">
             <form 
                 onSubmit={handleSubmit}
-                className="w-full max-w-md bg-white shadow-md rounded-lg p-6 space-y-4"
+                className="w-full max-w-md bg-white  p-1 space-y-4"
             >
                <Link href="/" className="flex text-xl justfy-center items-center hover:bg-blue-500 hover:text-white rounded-xl p-4"> <AiOutlineArrowLeft  />Home</Link>
                 <h2 className="text-2xl font-semibold text-gray-700 text-center">Register</h2>

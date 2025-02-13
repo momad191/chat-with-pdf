@@ -30,10 +30,10 @@ const LoginForm = () => {
     }
  
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen  px-4 sm:px-6 lg:px-3">
+        <div className="flex flex-col items-center justify-center min-h-screen  px-4 sm:px-6 lg:px-3 shadow-md rounded-lg">
             <div className="text-xl text-red-500 mb-4">{error}</div>
             <form 
-                className="w-full max-w-md bg-white shadow-md rounded-lg p-6 space-y-4" 
+                className="w-full max-w-md bg-white  p-6 space-y-4" 
                 onSubmit={onSubmit}
             >
            <Link href="/" className="flex text-xl justfy-center items-center hover:bg-blue-500 hover:text-white rounded-xl p-4"> <AiOutlineArrowLeft  />Home</Link>
