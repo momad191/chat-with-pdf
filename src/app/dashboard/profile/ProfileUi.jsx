@@ -2,13 +2,14 @@
 import { useState, useEffect } from "react"; 
 import SidebarWrapper from "../../../components/SidebarWrapper";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 
 export default function ProfileUi({session}) {
 
   const router = useRouter();
   const [user, setUser] = useState({
-    user_image: "",
+    image: "",
     name: "", // Fix: was missing underscore in the UI code
     age: "",
     sex: "",
@@ -27,6 +28,7 @@ export default function ProfileUi({session}) {
           ...prev,
           ...data, // Merge fetched data with existing structure
           user_name: data.user_name || "", // Ensure no undefined values
+          image:data.image || "",
           age: data.age || "",
           sex: data.sex || "",
           job: data.job || "",
@@ -68,8 +70,10 @@ export default function ProfileUi({session}) {
       <div className="w-full bg-white shadow-lg rounded p-6">
         <div>
           <div className="flex items-center gap-4 mb-6">
-            <img
-              src={user.user_image || "/default-avatar.jpg"}
+            <Image
+              src={user.image || "/default-avatar.jpg"}
+              width={72}
+              height={72}
               alt="User Avatar"
               className="w-20 h-20 rounded-full border"
             />

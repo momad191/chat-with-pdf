@@ -10,7 +10,7 @@ import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
 import { createHistoryAwareRetriever } from "langchain/chains/history_aware_retriever";
 import { MessagesPlaceholder } from "@langchain/core/prompts";
 import { auth } from "@/auth";
- 
+  
 export async function Chat(text1,file1) {
 const session = await auth();
 const mycv = `\public/uploads/${session?.user?.name}/${file1}`;

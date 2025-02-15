@@ -27,7 +27,7 @@
     // Define the folder and file paths
     const folderPath = join(process.cwd(), 'public', `uploads/${foldername}`);
     const filePath = join(folderPath, file.name);
-    const fileUrl = `/uploads/${foldername}/${file.name}`; // Relative URL to access the file
+    const fileUrl = `http://localhost:3000/uploads/${foldername}/${file.name}`; // Relative URL to access the file
     try {
       const newFile = {
         file_name:file.name,

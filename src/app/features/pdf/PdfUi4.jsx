@@ -82,7 +82,7 @@ function PdfUi4({ file_id,chat_data }) {
     <div className="flex bottom-4 right-4">
       {/* PDF Viewer  */}
       <iframe 
-        src={`http://localhost:3000/${file.file_url}`}
+        src={file.file_url}
         className="w-[50%] h-screen"
       ></iframe>
 

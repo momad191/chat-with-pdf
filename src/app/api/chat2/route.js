@@ -29,6 +29,8 @@ export async function POST(req) {
 
 
     const context = await getContext(text1,file1)
+    console.log(file1)
+    console.log("/////////////////////////////////")
     console.log("the context:",context)
 
 

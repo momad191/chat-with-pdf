@@ -3,19 +3,21 @@ import SocialLogins from "./SocialLogins";
 import { useRouter } from "next/navigation";
 import { AiOutlineUser, AiOutlineMail, AiOutlineLock, AiOutlineArrowLeft} from "react-icons/ai";
 import Link from 'next/link'
- 
+import Image from "next/image";
+  
 const RegistrationFormSocial = ({session}) => {
     const router = useRouter();
 
     async function handleSubmit(event) {
         event.preventDefault();
-
+ 
         try {
             const formData = new FormData(event.currentTarget);
 
             const name =  session?.user?.name ;
-            const email = session?.user?.email
-            const password = formData.get('password');
+            const email = session?.user?.email;
+            const image = session?.user?.image;
+            const password = formData.get('password'); 
 
             const response = await fetch(`/api/register`, {
                 method: 'POST',
@@ -25,6 +27,7 @@ const RegistrationFormSocial = ({session}) => {
                 body: JSON.stringify({
                     name,
                     email,
+                    image,
                     password
                 })
             });
@@ -44,6 +47,36 @@ const RegistrationFormSocial = ({session}) => {
             >
                <Link href="/" className="flex text-xl justfy-center items-center hover:bg-blue-500 hover:text-white rounded-xl p-4"> <AiOutlineArrowLeft  />Home</Link>
                 <h2 className="text-2xl font-semibold text-gray-700 text-center">Register</h2>
+
+
+                                                {session?.user?.name && session?.user?.image ? (
+                                                    <>
+                                                      <Image
+                                                            src={session?.user?.image}
+                                                            alt={session?.user?.name}
+                                                            width={72}
+                                                            height={72}
+                                                            className="rounded-full"
+                                                        />
+                                                        <h1 className="text-md  my-2">
+                                                            Welcome, {session?.user?.name}
+                                                        </h1>
+                                                      
+                                                    </>
+                                                ) : (
+                                                    <> 
+                                                    <Image
+                                                    src="/default-avatar.jpg"
+                                                    alt="avatar"
+                                                    width={72}
+                                                    height={72}
+                                                    className="rounded-full"
+                                                />
+                                                    <h1 className="text-sm my-2">
+                                                        Welcome, {session?.user?.email}
+                                                    </h1>
+                                                    </>
+                                                )}  
 
                 <div className="relative">
                     <label htmlFor="name" className="text-gray-600">Name</label>
@@ -83,6 +116,7 @@ const RegistrationFormSocial = ({session}) => {
                             name="password"
                             id="password"
                             placeholder="Enter your password"
+                            required
                         />
                     </div>
                 </div>
