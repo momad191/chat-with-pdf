@@ -46,7 +46,7 @@ export default function ContactUs() {
     <div>
         <Navbar />
         <div className="min-h-screen flex flex-col">
-        <main className="flex-grow bg-gray-100 flex items-center justify-center text-center">
+        <main className="flex-grow bg-gradient-to-b from-blue-100 to-blue-300 flex items-center justify-center text-center">
         <div className="container mx-auto px-4">
 
 

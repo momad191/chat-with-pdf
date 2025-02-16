@@ -1,7 +1,10 @@
 import { FaFolder, FaUser, FaCog } from "react-icons/fa";
+import { GiLevelFour } from "react-icons/gi";
+
 import Link from "next/link";
 import Image from "next/image";
 import Logout from  "@/components/Logout";
+
  
 const Sidebar = ({ isOpen ,session }) => {
     return (  
@@ -25,7 +28,7 @@ const Sidebar = ({ isOpen ,session }) => {
                                             className="rounded-full"
                                         />
                                         <h1 className="text-md  my-2">
-                                            Welcome, {session?.user?.name}
+                                            Hi, {session?.user?.name}
                                         </h1>
                                       
                                     </>
@@ -64,12 +67,19 @@ const Sidebar = ({ isOpen ,session }) => {
                     ><FaFolder className="mr-3" size={18} />
                          Add new File
                     </Link>
-
+ 
                     <Link
                         href="/dashboard/profile"
                         className="flex items-center p-2 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-white transition-all"
                     >
                         <FaUser className="mr-3" size={18} /> Account
+                    </Link>
+
+                    <Link
+                        href="/dashboard/upgrade"
+                        className="flex items-center p-2 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-white transition-all"
+                    >
+                        <GiLevelFour className="mr-3" size={18} /> Upgrade
                     </Link>
 
  

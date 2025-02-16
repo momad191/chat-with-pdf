@@ -30,7 +30,7 @@ const LoginForm = () => {
     }
  
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen  px-4 sm:px-6 lg:px-3 shadow-md rounded-lg">
+        <div className="flex flex-col items-center justify-center min-h-screen  px-4 sm:px-6 lg:px-6 shadow-md rounded-lg">
             <div className="text-xl text-red-500 mb-4">{error}</div>
             <form 
                 className="w-full max-w-md bg-white  p-6 space-y-4" 

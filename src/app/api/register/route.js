@@ -2,11 +2,19 @@ import { NextResponse } from "next/server";
 import { createUser } from "@/queries/users"; 
 import { dbConnect } from "@/lib/mongo";
 import bcrypt from "bcryptjs";
- 
+import { User } from "@/model/user-model";
 export const POST = async (request) => {
   const {name, email, image, password} = await request.json();
 
   console.log(name, email, image, password);
+      //see if user exists
+      let user = await User.findOne({ email });
+
+      if (user) {
+         return new NextResponse("The email you chose already exists...try another", {
+          status: 401,
+        });
+        }
  
   // Create a DB Conenction
   await dbConnect(); 
@@ -19,8 +27,10 @@ export const POST = async (request) => {
     email,
     image
   }
-  // Update the DB
+  // Update the DB 
   try {
+
+
     await createUser(newUser);
   } catch (err) {
     return new NextResponse(error.mesage, {

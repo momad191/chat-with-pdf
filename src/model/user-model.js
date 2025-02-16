@@ -13,6 +13,7 @@ const userSchema = new Schema({
   education: String,
   interests: String,
   bio: String,
+   
   password: {
     required: true,
     type: String,
@@ -21,7 +22,10 @@ const userSchema = new Schema({
     required: true,
     type: String,
   },
- 
+  membership: { 
+    type: String,
+    default: "free",
+  },
 }, { timestamps: true });
 
 export const User = mongoose.models.User ?? mongoose.model("User", userSchema);

@@ -1,4 +1,4 @@
-import Navbar from "@/components/navbar"
+import Navbar from "@/components/navbar" 
 import Link from "next/link";
 import { FaFileUpload } from "react-icons/fa";
 import { BsChatFill } from "react-icons/bs";
@@ -11,9 +11,9 @@ export default async function Home() {
     <>
     <Navbar session={session} />
      
-   <div className="min-h-screen flex flex-col">
+   <div className="min-h-screen flex flex-col ">
       {/* Main Section */}
-      <main className="flex-grow bg-gray-100 flex items-center justify-center text-center">
+      <main className="flex-grow bg-gradient-to-b from-blue-100 to-blue-300 flex items-center justify-center text-center">
         <div className="container mx-auto px-4">
           {/* Welcome Text */}
           <h1 className="text-4xl md:text-6xl font-bold text-gray-800 mb-4 transform transition-all duration-700 ease-in-out animate-bounce">

@@ -19,7 +19,7 @@ const HomePage = async () => {
             )
         }else{
     return (
-        <div className="md:flex ">
+        <div className="md:flex">
         <SidebarWrapper session={session} />  
         <UploadFileUi /> 
         </div>

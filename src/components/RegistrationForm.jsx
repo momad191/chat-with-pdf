@@ -1,11 +1,14 @@
 "use client";
 import SocialLogins from "./SocialLogins";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { AiOutlineUser, AiOutlineMail, AiOutlineLock, AiOutlineArrowLeft} from "react-icons/ai";
 import Link from 'next/link'
- 
+import { useState } from "react";
+  
 const RegistrationForm = () => {
-    const router = useRouter();
+    const [message,setMessage]=useState("")
+    const [message201,setMessage201]=useState("")
+    // const router = useRouter();
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -16,7 +19,7 @@ const RegistrationForm = () => {
             const name = formData.get('name');
             const email = formData.get('email');
             const password = formData.get('password');
-
+ 
             const response = await fetch(`/api/register`, {
                 method: 'POST',
                 headers: {
@@ -28,23 +31,29 @@ const RegistrationForm = () => {
                     password
                 })
             });
-
-            response.status === 201 && router.push('/login');
+ 
+            if(response.status === 201){
+                setMessage201("thank you for your registration")
+                // router.push('/login');
+            }else if(response.status === 401){
+                setMessage("The email you chose already exists")
+            }   
 
         } catch (e) {
             console.error(e.message);
         }
     }
-
+ 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen  px-1 sm:px-6 lg:px-3 shadow-md rounded-lg">
+        <div className="flex flex-col items-center justify-center min-h-screen  px-4 sm:px-6 lg:px-6 shadow-md rounded-lg">
             <form 
                 onSubmit={handleSubmit}
-                className="w-full max-w-md bg-white  p-1 space-y-4"
+                className="w-full max-w-md bg-white  p-6 space-y-4"
             >
                <Link href="/" className="flex text-xl justfy-center items-center hover:bg-blue-500 hover:text-white rounded-xl p-4"> <AiOutlineArrowLeft  />Home</Link>
                 <h2 className="text-2xl font-semibold text-gray-700 text-center">Register</h2>
-
+                {message201===""?(         
+                <>    
                 <div className="relative">
                     <label htmlFor="name" className="text-gray-600">Name</label>
                     <div className="flex items-center mt-1">
@@ -55,6 +64,7 @@ const RegistrationForm = () => {
                             name="name"
                             id="name"
                             placeholder="Enter your name"
+                            required
                         />
                     </div>
                 </div>
@@ -69,6 +79,7 @@ const RegistrationForm = () => {
                             name="email"
                             id="email"
                             placeholder="Enter your email"
+                            required
                         />
                     </div>
                 </div>
@@ -83,9 +94,22 @@ const RegistrationForm = () => {
                             name="password"
                             id="password"
                             placeholder="Enter your password"
+                            required
                         />
                     </div>
+                    {message===""?(
+                        <> </>
+                    ):(
+                        <div className="bg-red-500 text-white p-2 mt-2 rounded-md">{message}</div>
+                    )}
+                  
+                    
                 </div>
+                    </>
+                    ):( 
+                    <div className="bg-green-500 text-white p-2 mt-2 rounded-md">{message201}</div>
+
+                    )}
 
                 <button
                     type="submit"

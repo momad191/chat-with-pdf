@@ -129,27 +129,8 @@ function PdfUi4({ file_id,chat_data }) {
             </div>
           ))}
 
-          {loading && (
-            <div className="flex justify-start items-center space-x-2">
-              <Image
-                src="/chatbot.png"
-                width={50}
-                height={50}
-                alt="Bot Avatar"
-                className="w-8 h-8 rounded-full mr-2"
-              />
-              <div className="flex space-x-1">
-                <div className="w-5 h-5 bg-accent rounded-full animate-pulse"></div>
-                <div className="w-5 h-5 bg-accent rounded-full animate-pulse delay-75"></div>
-                <div className="w-5 h-5 bg-accent rounded-full animate-pulse delay-150"></div>
-              </div>
-            </div>
-          )}
+    
           
-  
-
-
-
         {/* ///////////////////////////////////////////////////////////////////// */}
 
           {messages.map((msg, index) => (
@@ -185,9 +166,9 @@ function PdfUi4({ file_id,chat_data }) {
                 className="w-8 h-8 rounded-full mr-2"
               />
               <div className="flex space-x-1">
-                <div className="w-5 h-5 bg-accent rounded-full animate-pulse"></div>
-                <div className="w-5 h-5 bg-accent rounded-full animate-pulse delay-75"></div>
-                <div className="w-5 h-5 bg-accent rounded-full animate-pulse delay-150"></div>
+                <div className="w-5 h-5 bg-sky-500 rounded-full animate-pulse"></div>
+                <div className="w-5 h-5 bg-sky-500 rounded-full animate-pulse delay-75"></div>
+                <div className="w-5 h-5 bg-sky-500 rounded-full animate-pulse delay-150"></div>
               </div>
             </div>
           )}
@@ -205,7 +186,7 @@ function PdfUi4({ file_id,chat_data }) {
           />
           <button
             onClick={sendMessage}
-            className="ml-1 w-10 h-10 bg-accent rounded-full flex items-center justify-center"
+            className="ml-1 w-10 h-10 bg-sky-500 rounded-full flex items-center justify-center"
           >
             ➤
           </button>
