@@ -1,7 +1,7 @@
 export const LOGIN = '/login';
 export const ROOT = '/';
 
-export const PUBLIC_ROUTES = [
+export const PUBLIC_ROUTES = [ 
     '/login',
     '/register',
     '/pricing',
@@ -11,7 +11,9 @@ export const PUBLIC_ROUTES = [
     '/api/auth/callback/google',
     '/api/auth/callback/github',
     '/api/register',
-    '/api/contact'
+    '/api/contact',
+    '/api/stripe',
+    '/api/webhook',
 
 ]
 

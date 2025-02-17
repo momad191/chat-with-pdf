@@ -12,6 +12,9 @@ const nextConfig = {
       },
     ],
   },
+  api: {
+    bodyParser: true, // Ensure this is enabled
+  },
 };
 
 export default nextConfig;

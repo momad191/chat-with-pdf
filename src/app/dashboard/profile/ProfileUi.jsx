@@ -18,6 +18,7 @@ export default function ProfileUi({session}) {
     interests: "",
     email: "",
     bio: "",
+    
   });
  
   useEffect(() => {

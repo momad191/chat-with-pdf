@@ -11,7 +11,7 @@ export async function GET() {
     if (!session) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-
+ 
     const email = session?.user?.email;
     if (!email) {
       return NextResponse.json({ error: "Email is required" }, { status: 400 });
