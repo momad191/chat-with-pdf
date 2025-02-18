@@ -11,7 +11,7 @@ const subscriptionSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-  },
+  }, 
   stripeSubscriptionId: {
     type: String,
     unique: true,
@@ -25,6 +25,16 @@ const subscriptionSchema = new Schema({
     type: Date, // Equivalent to timestamp
     default: null, // Optional field
   },
+
+  name: {
+    type: String,
+    default: null, // Optional field
+  },
+  email: {
+    type: String,
+    default: null, // Optional field
+  },
+
 }, { timestamps: true }); // Adds createdAt & updatedAt fields
 
 export const Subscription  = mongoose.models.Subscription ?? mongoose.model("Subscription", subscriptionSchema);

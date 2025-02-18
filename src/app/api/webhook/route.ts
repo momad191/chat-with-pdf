@@ -2,7 +2,6 @@
 // import { eq } from "drizzle-orm";
 // import { userSubscriptions } from "@/lib/db/schema";
 import { Subscription } from "@/model/subscription"; 
-
 import { stripe } from "@/lib/stripe";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
@@ -26,8 +25,9 @@ export async function POST(req: Request) {
   } catch (error) {
     return new NextResponse("webhook error", { status: 400 });
   }
-
+   
   const session = event.data.object as Stripe.Checkout.Session;
+  
 
   // new subscription created
   if (event.type === "checkout.session.completed") {
@@ -38,12 +38,15 @@ export async function POST(req: Request) {
       return new NextResponse("no userid", { status: 400 });
     } 
 
-    await Subscription.create({
+    await Subscription.create({ 
       userId: session.metadata.userId,
+      name: session.metadata.name,
+      email: session.metadata.email,
       stripeSubscriptionId: subscription.id,
       stripeCustomerId: subscription.customer as string,
       stripePriceId: subscription.items.data[0].price.id,
       stripeCurrentPeriodEnd: new Date(subscription.current_period_end * 1000),
+  
     });
 
     console.log("inserted to database ok ok ok ok ")

@@ -1,7 +1,6 @@
 import mongoose, { Schema } from "mongoose";
  
 const userSchema = new Schema({
-  user_image: String,
   name: {
     required: true,
     type: String,
@@ -11,7 +10,7 @@ const userSchema = new Schema({
   sex: String,
   job: String,
   education: String,
-  interests: String,
+  interests: String, 
   bio: String,
    
   password: {

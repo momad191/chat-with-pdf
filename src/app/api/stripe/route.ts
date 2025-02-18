@@ -3,6 +3,7 @@ import { dbConnect } from "@/lib/mongo";
 import { auth } from "@/auth"; 
 import { User } from "@/model/user-model"; 
 import { NextResponse } from "next/server";
+import { Subscription } from "@/model/subscription"; 
  
 const return_url = process.env.NEXT_BASE_URL + "/";
 
@@ -27,7 +28,28 @@ export async function GET() {
     }
     
     const userId = user._id.toString(); // Ensure it's a string
-   
+    if (!userId) {
+      return new NextResponse("unauthorized", { status: 401 });
+    }
+    const email = user.email;
+    const name = user.name;
+    
+
+    const _userSubscriptions = await Subscription.findOne({ userId:userId });
+
+if (_userSubscriptions && _userSubscriptions.stripeCustomerId) {
+  // trying to cancel at the billing portal
+  const stripeSession = await stripe.billingPortal.sessions.create({
+    customer: _userSubscriptions.stripeCustomerId,
+    return_url,
+  });
+    console.log("cancel X")
+  return NextResponse.json({ url: stripeSession.url });
+}
+
+
+
+    // user's first time trying to subscribe
     // Create Stripe session
     const stripeSession = await stripe.checkout.sessions.create({
       success_url: return_url,
@@ -54,6 +76,8 @@ export async function GET() {
       ],
       metadata: {
         userId,
+        email,
+        name
       },
     });
 
