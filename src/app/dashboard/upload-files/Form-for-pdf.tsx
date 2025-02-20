@@ -56,7 +56,7 @@ export default function UploadFormForPdf() {
           type="file"
           name="file"
           onChange={(e) => setFile(e.target.files?.[0] || null)}
-          className="block w-full border border-gray-300 rounded-md p-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-sky-500 transition"
+          className="block w-full border border-gray-300 rounded-md p-2 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-sky-500 transition cursor-pointer"
           disabled={isUploading}
         />
 
@@ -73,7 +73,9 @@ export default function UploadFormForPdf() {
                 className="animate-spin h-5 w-5 mr-2 border-white border-t-2 border-l-2 rounded-full"
                 viewBox="0 0 24 24"
               ></svg>
-              Uploading...
+              Please wait until the files have finished uploading...
+              Do not close the page!
+             
             </>
           ) : (
             "Creat chat"

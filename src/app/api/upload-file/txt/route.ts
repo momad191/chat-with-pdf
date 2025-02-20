@@ -5,6 +5,9 @@
   import { dbConnect } from "@/lib/mongo";
   import { loadS3IntoPineconeTEXT } from "@/lib/pineconeTEXT"; 
   import { auth } from "@/auth";
+
+  const server_url = process.env.NEXT_BASE_URL ;
+
   export async function POST(request: NextRequest) {
     await dbConnect()
     const session = await auth();
@@ -27,7 +30,7 @@
     // Define the folder and file paths
     const folderPath = join(process.cwd(), 'public', `uploads/${foldername}`);
     const filePath = join(folderPath, file.name);
-    const fileUrl = `http://localhost:3000/uploads/${foldername}/${file.name}`; // Relative URL to access the file
+    const fileUrl = `${server_url}/uploads/${foldername}/${file.name}`; // Relative URL to access the file
     try {
       const newFile = {
         file_name:file.name,
@@ -40,7 +43,7 @@
       // Write the file to the folder
       await writeFile(filePath, buffer);
       // load the file into Pinecone
-      await loadS3IntoPineconeTEXT(file.name);
+      // await loadS3IntoPineconeTEXT(file.name);
       await createFile(newFile);
       console.log(`File uploaded successfully. Path: ${filePath}`);
       return NextResponse.json({ success: true, url: `${fileUrl}`});

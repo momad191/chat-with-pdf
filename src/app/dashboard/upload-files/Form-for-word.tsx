@@ -69,7 +69,8 @@ export default function UploadFormForWord() {
                 className="animate-spin h-5 w-5 mr-2 border-white border-t-2 border-l-2 rounded-full"
                 viewBox="0 0 24 24"
               ></svg>
-              Uploading...
+               Please wait until the files have finished uploading...
+               Do not close the page!
             </>
           ) : (
             "Creat chat"

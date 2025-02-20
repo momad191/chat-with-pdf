@@ -1,19 +1,26 @@
 import { Pinecone, PineconeRecord } from "@pinecone-database/pinecone";
+import { Index } from "@upstash/vector"
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
 import md5 from "md5";
 import { 
-  Document, 
+  Document,  
   RecursiveCharacterTextSplitter,
 } from "@pinecone-database/doc-splitter";
 import { getEmbeddings } from "./embeddings";
 import { convertToAscii } from "./utils";
 import { auth } from "@/auth";
+
 export const getPineconeClient = () => {
   return new Pinecone({
     // environment: process.env.PINECONE_ENVIRONMENT!,
     apiKey: process.env.PINECONE_API_KEY!,
   });
 };
+
+// const upstashIndex = new Index({
+//   url: "https://outgoing-cod-10155-us1-vector.upstash.io",
+//   token: "ABYFMG91dGdvaW5nLWNvZC0xMDE1NS11czFhZG1pbk5EUTNZMlExWkRrdE5EYzJNUzAwWWpkakxXRTBaV0l0Tm1KbFlXRTBOR0k0TUdGaQ==",
+// })
  
 type PDFPage = {
   pageContent: string;
@@ -43,17 +50,21 @@ export async function loadS3IntoPineconePDF(fileKey: string) {
   // 3. vectorise and embed individual documents
   const vectors = await Promise.all(documents.flat().map(embedDocument));
 
+ 
   // 4. upload to pinecone
   const client = await getPineconeClient();
   const pineconeIndex = await client.index("chatpdf");
   const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
-
-  console.log("inserting vectors into pinecone");
   await namespace.upsert(vectors);
+  console.log("inserted vectors into pinecone");
+
+   // 4. upload to upstash
+  //  await upstashIndex.upsert(vectors);
+  //  console.log("inserted vectors into upstash");
 
   return documents[0];
 }
- 
+  
 async function embedDocument(doc: Document) {
   try {
     const embeddings = await getEmbeddings(doc.pageContent);
@@ -66,7 +77,7 @@ async function embedDocument(doc: Document) {
         text: doc.metadata.text,
         pageNumber: doc.metadata.pageNumber,
       },
-    } as PineconeRecord;
+    } as any;
   } catch (error) {
     console.log("error embedding document", error);
     throw error;

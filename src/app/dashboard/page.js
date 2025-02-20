@@ -4,8 +4,11 @@ import { redirect } from "next/navigation";
 import { User } from "@/model/user-model";
 import RegistrationFormSocial from "@/components/RegistrationFormSocial"    
 import UploadFileUi from "./upload-files/Ui"
-       
+import UploadFileUi10 from "./upload-files/Ui10"
+import { checkSubscription } from "@/lib/subscription";
+        
 const HomePage = async () => {
+  const isPro = await checkSubscription();
     const session = await auth();
     if (!session?.user) redirect("/");
         const email = session?.user?.email;
@@ -21,7 +24,9 @@ const HomePage = async () => {
     return (
         <div className="md:flex">
         <SidebarWrapper session={session} />  
-        <UploadFileUi /> 
+         
+        {isPro ? <UploadFileUi /> : <UploadFileUi10 /> }
+        
         </div>
     );
 }

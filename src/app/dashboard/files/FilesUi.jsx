@@ -32,7 +32,7 @@ const FilesTable = ({ session }) => {
       </div>
     );
   }
-
+ 
   if (files.length < 1) {
     return (
       <div className="xl:flex md:flex">
@@ -48,12 +48,12 @@ const FilesTable = ({ session }) => {
       </div>
     );
   }
-
+ 
   return (
     <div className="xl:flex md:flex">
       <SidebarWrapper session={session} />
       <div className="container mx-auto px-4 py-6">
-        <h1 className="text-2xl font-bold mb-4">Files</h1>
+        <h1 className="text-2xl font-bold mb-4">Files ({files.length})</h1>
         <div className="overflow-x-auto">
           <table className="w-full table-auto border-collapse border border-gray-300 shadow-lg rounded-md">
             <thead className="bg-gray-800 text-white">

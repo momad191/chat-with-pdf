@@ -4,7 +4,7 @@
  import { FaUser } from "react-icons/fa";
  import {Chat} from "./pdfAction"; 
      
-function PdfUi2 ({file_id}) {
+function PdfUi2({file_id,chat_data}) {
   const [file, setFile] = useState({});
    const [isOpen, setIsOpen] = useState(false);
    const [messages, setMessages] = useState([]);
@@ -22,7 +22,7 @@ function PdfUi2 ({file_id}) {
        setLoading(true);
  
        try {
-         const response = await Chat(input,file.file_name);
+         const response = await Chat(input,file.file_name,file_id);
          setLoading(false);
  
          // Show typing effect by splitting response text
@@ -82,18 +82,18 @@ function PdfUi2 ({file_id}) {
      <div className="flex bottom-4 right-4">
 
       <iframe 
-        src={`http://localhost:3000/${file.file_url}`}
+        src={`${file.file_url}`}
         className="w-[50%] h-screen"
       ></iframe>
 
-
-         <div className=" w-[50%] h-screen bg-[#27272c] text-white rounded-lg shadow-lg flex flex-col transition-all duration-500">
+  
+         <div className=" w-[50%] h-screen bg-[#27272c] text-white   shadow-lg flex flex-col transition-all duration-500">
            <header className="flex justify-between p-3 border-b border-black">
              <div className="flex flex-row items-center justify-start ">
                <Image
-                 src="/momad.jpg"
-                 width={40}
-                 height={40}
+                 src="/chatbot.png"
+                 width={50}
+                 height={50}
                  alt="momad image"
                  className="rounded-xl mr-3 mt-4"
                />
@@ -107,6 +107,44 @@ function PdfUi2 ({file_id}) {
  
            {/* Messages Area */}
            <div className="flex-1 overflow-y-scroll p-3 space-y-3 scrollbar-thin scrollbar-thumb-cyan-500 scrollbar-thumb-rounded hover:scrollbar-thumb-black">
+            
+              {/* /////////////////////////////////////////////////////////////////////////// */}
+            
+             
+                       {chat_data.map((msg, index) => (
+                        <div
+                          key={index}
+                          className={`flex items-center ${msg.type === "human" ? "justify-end" : "justify-start"}`}
+                        >
+                          {msg.type === "ai" && (
+                            <Image
+                              src="/chatbot.png"
+                              width={50}
+                              height={50}
+                              alt="Bot Avatar"
+                              className="w-8 h-8 rounded-full mr-2"
+                            />
+                          )}
+                          <div
+                            className={`p-2 max-w-xs rounded-md ${msg.type === "human" ? "bg-gray-500 text-white" : "bg-gray-200 text-black"}`}
+                          >
+                            {msg.data.content}
+                          </div>
+                          {msg.type === "human" && <FaUser width={50} height={50} />}
+                        </div>
+                      ))}
+            
+                
+                      
+                    {/* ///////////////////////////////////////////////////////////////////// */}
+            
+            
+            
+            
+            
+            
+            
+            
              {messages.map((msg, index) => (
                <div
                  key={index}
@@ -116,9 +154,9 @@ function PdfUi2 ({file_id}) {
                >
                  {msg.sender === "bot" && (
                    <Image
-                     src="/momad.jpg"
-                     width={40}
-                     height={40}
+                     src="/chatbot.png"
+                     width={50}
+                     height={50}
                      alt="Bot Avatar"
                      className="w-8 h-8 rounded-full mr-2"
                    />
@@ -140,16 +178,16 @@ function PdfUi2 ({file_id}) {
              {loading && (
                <div className="flex justify-start items-center space-x-2">
                  <Image
-                   src="/momad.jpg"
-                   width={40}
-                   height={40}
+                   src="/chatbot.png"
+                   width={50}
+                   height={50}
                    alt="Bot Avatar"
                    className="w-8 h-8 rounded-full mr-2"
                  />
                  <div className="flex space-x-1">
-                   <div className="w-5 h-5 bg-accent rounded-full animate-pulse"></div>
-                   <div className="w-5 h-5 bg-accent rounded-full animate-pulse delay-75"></div>
-                   <div className="w-5 h-5 bg-accent rounded-full animate-pulse delay-150"></div>
+                   <div className="w-5 h-5 bg-white rounded-full animate-pulse"></div>
+                   <div className="w-5 h-5 bg-white rounded-full animate-pulse delay-75"></div>
+                   <div className="w-5 h-5 bg-white rounded-full animate-pulse delay-150"></div>
                  </div>
                </div>
              )}

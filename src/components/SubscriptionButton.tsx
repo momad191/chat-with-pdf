@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import axios from "axios";
-
+ 
 type Props = { isPro: boolean };
 
 const SubscriptionButton = (props: Props) => {
@@ -15,11 +15,13 @@ const SubscriptionButton = (props: Props) => {
       console.error(error);
     } finally {
       setLoading(false);
-    }
+    } 
   };
   return (
-    <button disabled={loading} onClick={handleSubscription}>
-      {props.isPro ? "Manage Subscriptions" : "Get Pro"}
+    <button
+    className="mt-6 w-full bg-blue-500 hover:bg-blue-700 text-white py-2 rounded-lg text-2xl font-bold"
+    disabled={loading} onClick={handleSubscription}>
+      {props.isPro ? "Manage Subscriptions" : "Get Plus"}
     </button>
   );
 };

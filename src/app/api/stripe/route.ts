@@ -5,7 +5,7 @@ import { User } from "@/model/user-model";
 import { NextResponse } from "next/server";
 import { Subscription } from "@/model/subscription"; 
  
-const return_url = process.env.NEXT_BASE_URL + "/";
+const return_url = process.env.NEXT_BASE_URL + "/dashboard/upgrade";
 
 export async function GET() {
   try {

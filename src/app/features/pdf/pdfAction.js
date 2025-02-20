@@ -10,12 +10,20 @@ import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
 import { createHistoryAwareRetriever } from "langchain/chains/history_aware_retriever";
 import { MessagesPlaceholder } from "@langchain/core/prompts";
 import { auth } from "@/auth";
+
+
+import { BufferMemory } from "langchain/memory";
+import { UpstashRedisChatMessageHistory } from "@langchain/community/stores/message/upstash_redis";
+import { RunnableSequence } from "@langchain/core/runnables";
+
   
-export async function Chat(text1,file1) {
+export async function Chat(text1,file1,file_id) {
 const session = await auth();
-const mycv = `\public/uploads/${session?.user?.name}/${file1}`;
+const mycv = `\public/uploads/${session?.user?.email}/${file1}`;
+console.log("File Path:", mycv);
 const loader = new PDFLoader(mycv);
 const docs = await loader.load();
+console.log("Docs Loaded:", docs.length);
 
   const llm = new ChatOpenAI({
     model: "gpt-3.5-turbo",
@@ -31,35 +39,77 @@ const docs = await loader.load();
   const vectorstore = await MemoryVectorStore.fromDocuments(
     splits,
     new OpenAIEmbeddings({
-      model: "text-embedding-3-large"
+      // model: "text-embedding-3-large"
+      model: "text-embedding-ada-002" 
     })
   );
   const retriever = vectorstore.asRetriever();
 
+  console.log("Retriever Status:", retriever);
+
 
   ///////////////////////////////////////////////////////////////////////////////////////////
 
-  const contextualizeQSystemPrompt = `AI assistant is a brand new, powerful, human-like artificial intelligence.
-      The traits of AI include expert knowledge, helpfulness, cleverness, and articulateness.
-      AI is a well-behaved and well-mannered individual.
-      AI is always friendly, kind, and inspiring, and he is eager to provide vivid and thoughtful responses to the user.
-      AI has the sum of all knowledge in their brain, and is able to accurately answer nearly any question about any topic in conversation.
-      AI assistant is a big fan of Pinecone and Vercel.
-      START CONTEXT BLOCK
-      {context}
-      END OF CONTEXT BLOCK
-      AI assistant will take into account any CONTEXT BLOCK that is provided in a conversation.
-      If the context does not provide the answer to question, the AI assistant will say, "I'm sorry, but I don't know the answer to that question".
-      AI assistant will not apologize for previous responses, but instead will indicated new information was gained.
-      AI assistant will not invent anything that is not drawn directly from the context.
-      `
+  // const contextualizeQSystemPrompt = `AI assistant is a brand new, powerful, human-like artificial intelligence.
+  //     The traits of AI include expert knowledge, helpfulness, cleverness, and articulateness.
+  //     AI is a well-behaved and well-mannered individual.
+  //     AI is always friendly, kind, and inspiring, and he is eager to provide vivid and thoughtful responses to the user.
+  //     AI has the sum of all knowledge in their brain, and is able to accurately answer nearly any question about any topic in conversation.
+  //     AI assistant is a big fan of Pinecone and Vercel.
+  //     START CONTEXT BLOCK
+  //     {context}
+  //     END OF CONTEXT BLOCK
+  //     AI assistant will take into account any CONTEXT BLOCK that is provided in a conversation.
+  //     If the context does not provide the answer to question, the AI assistant will say, "I'm sorry, but I don't know the answer to that question, please ask me about the document you uploaded".
+  //     AI assistant will not apologize for previous responses, but instead will indicated new information was gained.
+  //     AI assistant will not invent anything that is not drawn directly from the context.
+  //     Chat History: {history}
+  //     `
 
-    const qaPrompt = ChatPromptTemplate.fromMessages([
-      ["system", contextualizeQSystemPrompt],
-      new MessagesPlaceholder("chat_history"),
-      ["human", "{input}"],
-    ]);
 
+  const qaPrompt = ChatPromptTemplate.fromTemplate(`
+    You are an advanced AI assistant with access to a specific document uploaded by the user. Your task is to answer questions based only on the provided document.  
+    AI assistant is a brand new, powerful, human-like artificial intelligence.
+    The traits of AI include expert knowledge, helpfulness, cleverness, and articulateness.
+    AI is a well-behaved and well-mannered individual.
+    AI is always friendly, kind, and inspiring, and he is eager to provide vivid and thoughtful responses to the user.
+    AI has the sum of all knowledge in their brain, and is able to accurately answer nearly any question about any topic in conversation.
+    AI assistant is a big fan of Pinecone and Vercel.
+    use the same Language of the input and the context to answer the questions
+    START CONTEXT BLOCK
+    Context: {context} 
+    END OF CONTEXT BLOCK
+    
+    - ** Strictly base your response on the document's content.** If the answer is not found, say, "I couldn't find relevant information in the provided document."  
+    - **Do not generate information outside of the document's context.**  
+    - **Cite relevant sections or page numbers when possible.**  
+    - **Be concise, but ensure clarity and completeness.**  
+    - **Maintain the document's original meaning without adding assumptions.**  
+    Now, based on the provided context, answer the user’s questions accurately using the same language in the input and context.
+    chatHistory: {history}
+    {input}`);
+
+      const upstashMessageHistory = new UpstashRedisChatMessageHistory({
+        sessionId: file_id,
+         // sessionTTL: 300, // 5 minutes, omit this parameter to make sessions never expire
+        config: {
+          url: "https://suited-finch-58820.upstash.io", // Override with your own instance's URL
+          token: "AeXEAAIjcDE5OGI2MDc1YTljMDg0MDFkYTZiMTk2MjkyYmRmNzBmM3AxMA", // Override with your own instance's token
+        },
+      });
+      const memory = new BufferMemory({
+        memoryKey: "history",
+        chatHistory: upstashMessageHistory,
+      });
+
+      // console.log("Memory:", await memory.loadMemoryVariables({}));
+
+    // const qaPrompt = ChatPromptTemplate.fromMessages([
+    //   ["system", contextualizeQSystemPrompt],
+    //   new MessagesPlaceholder("chatHistory"),
+    //   ["human", "{input}"],
+    // ]);
+ 
       const historyAwareRetriever = await createHistoryAwareRetriever({
         llm,
         retriever,
@@ -71,15 +121,36 @@ const docs = await loader.load();
           prompt: qaPrompt,
         });
 
-
+        
           const ragChain2 = await createRetrievalChain({
             retriever: historyAwareRetriever,
             combineDocsChain: questionAnswerChain2,
           });
-        
-          const response = await ragChain2.invoke({
+
+
+          const chain = RunnableSequence.from([
+            {
+              input: (initialInput) => initialInput.input,
+              memory: () => memory.loadMemoryVariables({}),
+            },
+            {
+              input: (previousOutput) => previousOutput.input,
+              history: (previousOutput) => previousOutput.memory.history,
+            },
+            ragChain2
+          ]);
+
+
+          let inputs2 = {
             input: text1,
+          };
+        
+          const response = await chain.invoke(inputs2);
+
+          await memory.saveContext(inputs2, {
+            output: response.answer,
           });
+
           return response.answer;
         }
 

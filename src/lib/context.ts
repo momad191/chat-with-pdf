@@ -14,7 +14,7 @@ export async function getMatchesFromEmbeddings(
     const pineconeIndex = await client.index("chatpdf");
     const namespace = pineconeIndex.namespace(convertToAscii(fileKey));
     const queryResult = await namespace.query({
-      topK: 5,
+      topK: 3,
       vector: embeddings,
       includeMetadata: true,
     });
@@ -30,7 +30,7 @@ export async function getContext(query: string, fileKey: string) {
   const matches = await getMatchesFromEmbeddings(queryEmbeddings, fileKey);
 
   const qualifyingDocs = matches.filter(
-    (match) => match.score && match.score > 0.50
+    (match) => match.score && match.score > 0.70
   );
 
   type Metadata = {
