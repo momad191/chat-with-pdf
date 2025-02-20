@@ -8,7 +8,7 @@ import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { createRetrievalChain } from "langchain/chains/retrieval";
 import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
 import { createHistoryAwareRetriever } from "langchain/chains/history_aware_retriever";
-import { MessagesPlaceholder } from "@langchain/core/prompts";
+// import { MessagesPlaceholder } from "@langchain/core/prompts";
 import { auth } from "@/auth";
 
 
@@ -19,16 +19,16 @@ import { RunnableSequence } from "@langchain/core/runnables";
   
 export async function Chat(text1,file1,file_id) {
 const session = await auth();
-const mycv = `\public/uploads/${session?.user?.email}/${file1}`;
-console.log("File Path:", mycv);
-const loader = new PDFLoader(mycv);
+const myfile = `\public/uploads/${session?.user?.email}/${file1}`;
+// console.log("File Path:", myfile);
+const loader = new PDFLoader(myfile);
 const docs = await loader.load();
-console.log("Docs Loaded:", docs.length);
+// console.log("Docs Loaded:", docs.length);
 
   const llm = new ChatOpenAI({
     model: "gpt-3.5-turbo",
     apiKey: process.env.OPENAI_API_KEY,
-    temperature: 0,
+    temperature: 0.7,
   });
 
  const textSplitter = new RecursiveCharacterTextSplitter({
@@ -39,16 +39,17 @@ console.log("Docs Loaded:", docs.length);
   const vectorstore = await MemoryVectorStore.fromDocuments(
     splits,
     new OpenAIEmbeddings({
-      // model: "text-embedding-3-large"
-      model: "text-embedding-ada-002" 
+       model: "text-embedding-3-large"
+      // model: "text-embedding-ada-002" 
     })
   );
+
+  
   const retriever = vectorstore.asRetriever();
+  // console.log("Retriever Status:", retriever);
 
-  console.log("Retriever Status:", retriever);
 
-
-  ///////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////Prompts//////////////////////////////////////////////
 
   // const contextualizeQSystemPrompt = `AI assistant is a brand new, powerful, human-like artificial intelligence.
   //     The traits of AI include expert knowledge, helpfulness, cleverness, and articulateness.
@@ -89,7 +90,8 @@ console.log("Docs Loaded:", docs.length);
     chatHistory: {history}
     {input}`);
 
-      const upstashMessageHistory = new UpstashRedisChatMessageHistory({
+    ///////////////////////////////////////////DadaBase ridis for saving chats ///////////////////////////////////////
+    const upstashMessageHistory = new UpstashRedisChatMessageHistory({
         sessionId: file_id,
          // sessionTTL: 300, // 5 minutes, omit this parameter to make sessions never expire
         config: {
@@ -127,7 +129,7 @@ console.log("Docs Loaded:", docs.length);
             combineDocsChain: questionAnswerChain2,
           });
 
-
+  
           const chain = RunnableSequence.from([
             {
               input: (initialInput) => initialInput.input,

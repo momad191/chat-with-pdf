@@ -22,7 +22,7 @@ function PdfUi2({file_id,chat_data}) {
        setLoading(true);
  
        try {
-         const response = await Chat(input,file.file_name,file_id);
+         const response = await Chat(input,file.file_name,file_id); 
          setLoading(false);
  
          // Show typing effect by splitting response text
@@ -61,7 +61,7 @@ function PdfUi2({file_id,chat_data}) {
  
 
 
-   
+    
 
    useEffect(() => {
        async function fetchFiles() {

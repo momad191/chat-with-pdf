@@ -12,7 +12,7 @@ function PdfUi4({ file_id,chat_data }) {
   const [loading, setLoading] = useState(false);
   const messageEndRef = useRef(null);
 
-  // const toggleChatbot = () => setIsOpen(!isOpen);
+  // const toggleChatbot = () => setIsOpen(!isOpen);  
 
   const sendMessage = async () => {
     if (input.trim()) {
@@ -22,7 +22,7 @@ function PdfUi4({ file_id,chat_data }) {
       setLoading(true);
 
       try {
-        const response = await fetch("/api/chat2", {
+        const response = await fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ text1: input, file1: file.file_name,file_id:file_id }),
@@ -53,7 +53,7 @@ function PdfUi4({ file_id,chat_data }) {
       }
     }
   };
-
+  
   useEffect(() => {
     if (messageEndRef.current) {
       messageEndRef.current.scrollIntoView({ behavior: "smooth" });
@@ -121,9 +121,11 @@ function PdfUi4({ file_id,chat_data }) {
                 />
               )}
               <div
-                className={`p-2 max-w-xs rounded-md ${msg.type === "human" ? "bg-gray-500 text-white" : "bg-gray-200 text-black"}`}
+                className={`p-2 max-w-xs rounded-md  ${msg.type === "human" ? "bg-gray-500 text-white" : "bg-gray-200 text-black"}`}
               >
+                <p className="text-center"> 
                 {msg.data.content}
+                </p>
               </div>
               {msg.type === "human" && <FaUser width={50} height={50} />}
             </div>

@@ -90,29 +90,33 @@ const UploadFileUi10 = () => {
       PFD Files 
       </button> 
      
-      <button onClick={changeToWORD}
+      {/* <button onClick={changeToWORD}
              className={`bg-sky-300 text-black p-7 hover:bg-sky-500 hover:text-white rounded-b-[50%]
               ${isWORD && `bg-gray-900 text-white`}
               `}
             >
         WORD Files 
 
-        </button>
+        </button> */}
      
-      <button onClick={changeToTXT} 
+      {/* <button onClick={changeToTXT} 
             className={`bg-sky-300 text-black p-7 hover:bg-sky-500 hover:text-white rounded-b-[50%]
               ${isTXT && `bg-gray-900 text-white`}
               `}
             >
         .TXT Files 
-        </button>
-        <button onClick={changeToURL} 
+        </button> */}
+
+
+        {/* <button onClick={changeToURL} 
             className={`bg-sky-300 text-black p-7 hover:bg-sky-500 hover:text-white rounded-b-[50%]
               ${isURL && `bg-gray-900 text-white`}
               `}
             >
         Web page (URL) 
-        </button>
+        </button> */}
+
+
       </div>
       <div className="md:flex  justfy-center  items-center">
         {isPDF&&(

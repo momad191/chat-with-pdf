@@ -51,7 +51,7 @@ export default function UploadFormForUrl() {
       >
         <h2 className="text-2xl font-bold text-center">
           <FaLink className="bg-white text-gray-900" /> Enter your
-          <span className="bg-sky-500 p-2 rounded text-white text-2xl"> URL </span>
+          <span className="bg-sky-500 p-2 rounded text-white text-2xl"> PDF URL </span>
         </h2>
 
         <input

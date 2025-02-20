@@ -1,0 +1,27 @@
+{
+    "NavBar": { 
+      "TaskManager": "إدارة مهام",
+      "Language": "اللغة",
+      "Home": "الرئيسية", 
+      "Add New Task": "أضف مهمة جديدة",
+      "Subscribers": "مشتركين",
+      "About": "من نحن",
+      "Users": "المستخدمين",
+      "All Tasks": "جميع المهام",
+      "Login":"الدخول",
+      "Sign up":"التسجيل"
+  
+    },
+    "Home":{  
+      "Manage Your Daily Tasks Effortlessly": "إدارة مهامك اليومية بسهولة",
+      "Add New Tasks": "أضف مهمة جديدة",
+      "Track Your Progress": "تتبع تقدمك",
+      "Real-Time Collaboration": "التعاون في الوقت الحقيقي",
+      "Start Now": "ابدأ الأن",
+      "All Tasks": "All Tasks",
+      "Login":"Login",
+      "Sign up":"Sign up"
+  
+    }
+  }
+   

@@ -1,0 +1,26 @@
+{
+    "NavBar": {  
+      "TaskManager": "TaskManager", 
+      "Language": "Language",
+      "Home": "Home",
+      "Add New Task": "Add New Task",
+      "Subscribers": "Subscribers",
+      "About": "About",
+      "Users": "Users",
+      "All Tasks": "All Tasks",
+      "Login":"Login",
+      "Sign up":"Sign up"
+  
+    },
+    "Home":{  
+      "Manage Your Daily Tasks Effortlessly": "Manage Your Daily Tasks Effortlessly",
+      "Add New Tasks": "Add New Tasks",
+      "Track Your Progress": "Track Your Progress",
+      "Real-Time Collaboration": "Real-Time Collaboration",
+      "Start Now": "Start Now",
+      "All Tasks": "All Tasks",
+      "Login":"Login",
+      "Sign up":"Sign up"
+  
+    }
+  }

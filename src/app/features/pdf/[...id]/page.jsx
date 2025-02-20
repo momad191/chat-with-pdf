@@ -1,6 +1,6 @@
  
-// import PdfUi4 from "../PdfUi4";
-import PdfUi2 from "../PdfUi2";
+import PdfUi4 from "../PdfUi4";
+// import PdfUi2 from "../PdfUi2";
 import { Redis } from '@upstash/redis'
 
 const redis = new Redis({
@@ -20,8 +20,8 @@ export default async function Page({ params }) {
   const chat_data = await getAllListData([`${id}`])
    return ( 
     <div>
-      {/* <PdfUi4 file_id={id}  chat_data={chat_data} />   */}
-      <PdfUi2 file_id={id} chat_data={chat_data} />     
+      <PdfUi4 file_id={id}  chat_data={chat_data} />  
+      {/* <PdfUi2 file_id={id} chat_data={chat_data} />       */}
     </div>
   );
 }

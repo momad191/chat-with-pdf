@@ -4,8 +4,27 @@ import { FaBars, FaTimes, FaUserCircle  } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 
+import Cookies from 'js-cookie'
+import {useTranslations} from 'next-intl';
+import { useRouter } from "next/navigation";
+
 
 const Navbar = ({session}) => {
+
+    const router = useRouter();
+    const t = useTranslations('NavBar');
+
+    const setEnglish = async (L) => {
+        await Cookies.set('lan', L);
+        router.push("/");
+        // alert( document.cookie.match(new RegExp("ar|en")));
+        };
+        const setArabic = async (L) => {
+          await Cookies.set('lan', L);
+          router.push("/");
+          // alert( document.cookie.match(new RegExp("ar|en")));
+          };
+
      
     const [isOpen, setIsOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -75,6 +94,11 @@ const Navbar = ({session}) => {
                                 Contact
                             </Link>
                         </li>
+
+                        <a  onClick={()=>{setEnglish('en')}} href="/" className="block px-4 py-2 text-gray-700 hover:bg-gray-200 transition-colors"> En </a>
+                        <a onClick={()=>{setArabic('ar')}} href="/" className="block px-4 py-2 text-gray-700 hover:bg-gray-200 transition-colors"> Ar </a>
+
+
                     </ul>
                 </nav>
 

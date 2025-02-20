@@ -23,7 +23,7 @@ export async function GET(request) {
 
     // Fetch the file by ID from the database
     const file = await File.findById(id);
-
+  
     if (!file) {
       return new NextResponse(
         JSON.stringify({
