@@ -63,7 +63,7 @@ function PdfUi4({ file_id,chat_data }) {
   const handleEnterKey = (event) => {
     if (event.key === "Enter") sendMessage();
   };
-
+ 
   useEffect(() => {
     async function fetchFiles() {
       try {

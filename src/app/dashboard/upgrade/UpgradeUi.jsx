@@ -4,8 +4,11 @@ import { useRouter } from "next/navigation";
 import SidebarWrapper from "../../../components/SidebarWrapper";
 import SubscriptionButton from "@/components/SubscriptionButton"
 import { FaCheckCircle } from "react-icons/fa";
+import {useTranslations} from 'next-intl'; 
 
  const Upgrade = ({session, isPro}) => {
+  const t = useTranslations('Upgrade');
+
   const router = useRouter();
   const [user, setUser] = useState({
     image: "",
@@ -104,10 +107,10 @@ import { FaCheckCircle } from "react-icons/fa";
     
     <div className="min-h-screen flex  items-center justify-center  w-full  bg-gradient-to-b from-blue-100 to-blue-300 p-6">
       <div className="max-w-5xl w-full text-center">
-        <h2 className="text-4xl font-bold text-gray-900 mb-4">Upgrade to Plus</h2>
+        <h2 className="text-4xl font-bold text-gray-900 mb-4"> {t('Upgrade to Plus')}</h2>
         <p className="text-lg font-normal text-gray-700 mb-8">
-        Take advantage of the features after upgrading /   
-        <span className="text-red-800"> cancel any time </span>
+         {t('Take advantage of the features after upgrading')}  /   
+        <span className="text-red-800"> {t('cancel any time')} </span>
         </p>
   
 
@@ -116,20 +119,20 @@ import { FaCheckCircle } from "react-icons/fa";
             <div
               className="bg-white shadow-lg rounded-2xl p-6 border border-blue-300 flex flex-col justify-between"
             > 
-              <h3 className="text-3xl font-semibold text-gray-900"> Plus </h3>
-              <p className="text-2xl font-bold text-blue-600 mt-2 "> $20/mo </p>
+              <h3 className="text-3xl font-semibold text-gray-900">{t('Plus')}</h3>
+              <p className="text-2xl font-bold text-blue-600 mt-2 "> {t('$20/mo')}  </p>
               <ul className="mt-4 space-y-2 text-gray-700 text-xl font-bold">
                   <li  className="flex items-center gap-3">
-                   <FaCheckCircle className="text-green-500 text-3xl" /> Unlimited PDFs
+                   <FaCheckCircle className="text-green-500 text-3xl" />  {t('Unlimited PDFs')}
                   </li>
                   <li  className="flex items-center gap-3">
-                  <FaCheckCircle className="text-green-500 text-3xl" /> Unlimited Questions
+                  <FaCheckCircle className="text-green-500 text-3xl" />  {t('Unlimited Questions')}
                   </li>
                   <li  className="flex items-center gap-3">
-                  <FaCheckCircle className="text-green-500 text-3xl" /> 2,000 Pages/PDF
+                  <FaCheckCircle className="text-green-500 text-3xl" />  {t('2,000 Pages/PDF')}
                   </li>
                   <li  className="flex items-center gap-3">
-                  <FaCheckCircle className="text-green-500 text-3xl" /> 32 MB/PDF
+                  <FaCheckCircle className="text-green-500 text-3xl" />  {t('32 MB/PDF')} 
                   </li>
               </ul>
              {/*  <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">

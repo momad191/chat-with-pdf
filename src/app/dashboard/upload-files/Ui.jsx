@@ -4,6 +4,7 @@ import UploadFormForTxt from "./Form-for-txt"
 import UploadFormForWord from "./Form-for-word" 
 import UploadFormForUrl from "./Form-for-url" 
 import { useState } from "react"
+import {useTranslations} from 'next-intl';
  
 const UploadFileUi = () => {
   const [isPDF,setIsPDF]= useState(true)

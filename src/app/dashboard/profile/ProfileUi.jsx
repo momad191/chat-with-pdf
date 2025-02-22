@@ -3,10 +3,11 @@ import { useState, useEffect } from "react";
 import SidebarWrapper from "../../../components/SidebarWrapper";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import {useTranslations} from 'next-intl'; 
 
 
 export default function ProfileUi({session}) {
-
+  const t = useTranslations('Profile');
   const router = useRouter();
   const [user, setUser] = useState({
     image: "",
@@ -20,7 +21,6 @@ export default function ProfileUi({session}) {
     bio: "",
     
   });
- 
   useEffect(() => {
     fetch("/api/users/profile")
       .then((res) => res.json())
@@ -85,20 +85,19 @@ export default function ProfileUi({session}) {
           </div>
 
           <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
-            <InputField label="User Name" name="name" value={user.name || ""} onChange={handleChange} />
-            <InputField label="Age" name="age" value={user.age || ""} onChange={handleChange} />
-            <InputField label="Sex" name="sex" value={user.sex || ""} onChange={handleChange} />
-            <InputField label="Job" name="job" value={user.job || ""} onChange={handleChange} />
-            <InputField label="Education" name="education" value={user.education || ""} onChange={handleChange} />
-            <InputField label="Interests" name="interests" value={user.interests || ""} onChange={handleChange} />
-            <InputField label="Bio" name="bio" value={user.bio || ""} onChange={handleChange} />
-
+            <InputField label={t('User Name')} name="name" value={user.name || ""} onChange={handleChange} />
+            <InputField label={t('Age')} name="age" value={user.age || ""} onChange={handleChange} />
+            <InputField label={t('Sex')} name="sex" value={user.sex || ""} onChange={handleChange} />
+            <InputField label={t('Job')} name="job" value={user.job || ""} onChange={handleChange} />
+            <InputField label={t('Education')} name="education" value={user.education || ""} onChange={handleChange} />
+            <InputField label={t('Interests')} name="interests" value={user.interests || ""} onChange={handleChange} />
+            <InputField label={t('Bio')} name="bio" value={user.bio || ""} onChange={handleChange} />
             <button
               type="submit"
               className="col-span-2 mt-4 bg-blue-600 text-white py-2 px-4 rounded-lg border-2 border-blue-700 font-semibold 
                         hover:bg-blue-700 focus:ring focus:ring-blue-300 transition-all duration-300"
             >
-              Save Changes
+              {t('Save Changes')}
             </button>
           </form>
         </div>

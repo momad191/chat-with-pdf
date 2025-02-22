@@ -23,10 +23,13 @@ const HomePage = async () => {
         }else{
     return (
         <div className="md:flex">
-        <SidebarWrapper session={session} />  
+          
+        <SidebarWrapper session={session} /> 
          
         {isPro ? <UploadFileUi /> : <UploadFileUi10 /> }
-        
+
+       
+         
         </div>
     );
 }

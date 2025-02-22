@@ -13,9 +13,9 @@ const SidebarWrapper = ({session}) => {
                 onClick={toggleSidebar}
                 className="md:hidden p-2 bg-blue-500 text-white fixed top-4 right-4 z-50 rounded-full hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 transition-all"
             >
-                {isOpen ? <IoClose /> : <MdOpenInFull /> }
+            {isOpen ? <IoClose /> : <MdOpenInFull /> }
             </button>
-            <Sidebar isOpen={isOpen} session={session}  />
+            <Sidebar isOpen={isOpen} session={session}  /> 
         </>
     );
 };

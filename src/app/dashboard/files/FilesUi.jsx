@@ -3,8 +3,10 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { IoMdChatboxes } from "react-icons/io";
 import SidebarWrapper from "@/components/SidebarWrapper";
+import {useTranslations} from 'next-intl';
 
 const FilesTable = ({ session }) => {
+  const t = useTranslations('Files');
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(true); // Track loading state
 
@@ -38,10 +40,11 @@ const FilesTable = ({ session }) => {
       <div className="xl:flex md:flex">
         <SidebarWrapper session={session} />
         <div className="container mx-auto px-4 py-6">
-          <h1 className="text-2xl font-bold mb-4">No files uploaded</h1>
+          <h1 className="text-2xl font-bold mb-4"> {t('No files uploaded')}</h1>
           <Link href="/dashboard">
             <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-all">
-              Upload your files now
+              
+              {t('Upload your files now')}
             </button>
           </Link>
         </div>
@@ -53,14 +56,14 @@ const FilesTable = ({ session }) => {
     <div className="xl:flex md:flex">
       <SidebarWrapper session={session} />
       <div className="container mx-auto px-4 py-6">
-        <h1 className="text-2xl font-bold mb-4">Files ({files.length})</h1>
+        <h1 className="text-2xl font-bold mb-4">{t('Files')} ({files.length})</h1>
         <div className="overflow-x-auto">
           <table className="w-full table-auto border-collapse border border-gray-300 shadow-lg rounded-md">
             <thead className="bg-gray-800 text-white">
               <tr>
-                <th className="p-3 text-left">Created</th>
-                <th className="p-3 text-left">Title</th>
-                <th className="p-3 text-left">Chat</th>
+                <th className="p-3 text-left"> {t('Created')} </th>
+                <th className="p-3 text-left"> {t('Title')} </th>
+                <th className="p-3 text-left"> {t('Chat')} </th>
               </tr>
             </thead>
             <tbody>
@@ -76,7 +79,7 @@ const FilesTable = ({ session }) => {
                       className="flex items-center gap-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 transition-all"
                       onClick={() => window.open(`/features/pdf/${file._id}`, "_blank")}
                     >
-                      <IoMdChatboxes /> Chat
+                      <IoMdChatboxes />  {t('Chat')} 
                     </button>
                   </td>
                 </tr>

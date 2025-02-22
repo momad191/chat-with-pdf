@@ -1,10 +1,14 @@
 "use client";
 import React from "react";
 import axios from "axios";
+import {useTranslations} from 'next-intl'; 
  
 type Props = { isPro: boolean };
 
+
 const SubscriptionButton = (props: Props) => {
+  const t = useTranslations('SubscriptionButton');
+
   const [loading, setLoading] = React.useState(false);
   const handleSubscription = async () => {
     try {
@@ -21,7 +25,7 @@ const SubscriptionButton = (props: Props) => {
     <button
     className="mt-6 w-full bg-blue-500 hover:bg-blue-700 text-white py-2 rounded-lg text-2xl font-bold"
     disabled={loading} onClick={handleSubscription}>
-      {props.isPro ? "Manage Subscriptions" : "Get Plus"}
+      {props.isPro ? t('Manage Subscriptions') : t('Get Plus')}
     </button>
   );
 };

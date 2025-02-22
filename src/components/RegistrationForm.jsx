@@ -4,8 +4,10 @@ import SocialLogins from "./SocialLogins";
 import { AiOutlineUser, AiOutlineMail, AiOutlineLock, AiOutlineArrowLeft} from "react-icons/ai";
 import Link from 'next/link'
 import { useState } from "react";
+import {useTranslations} from 'next-intl';
   
 const RegistrationForm = () => {
+     const t = useTranslations('Register');
     const [message,setMessage]=useState("")
     const [message201,setMessage201]=useState("")
     // const router = useRouter();
@@ -43,19 +45,19 @@ const RegistrationForm = () => {
             console.error(e.message);
         }
     }
- 
-    return (
-        <div className="flex flex-col items-center justify-center min-h-screen  px-4 sm:px-6 lg:px-6 shadow-md rounded-lg">
+  
+    return ( 
+        <div className="flex flex-col bg-white items-center justify-center min-h-screen  px-4 sm:px-6 lg:px-6 shadow-md rounded-lg">
             <form 
                 onSubmit={handleSubmit}
-                className="w-full max-w-md bg-white  p-6 space-y-4"
+                className="w-full max-w-md   p-6 space-y-4"
             >
-               <Link href="/" className="flex text-xl justfy-center items-center hover:bg-blue-500 hover:text-white rounded-xl p-4"> <AiOutlineArrowLeft  />Home</Link>
-                <h2 className="text-2xl font-semibold text-gray-700 text-center">Register</h2>
+               <Link href="/" className="flex text-xl justfy-center items-center hover:bg-blue-500 hover:text-white rounded-xl p-4"> <AiOutlineArrowLeft  /> {t('Home2')}</Link>
+                <h2 className="text-2xl font-semibold text-gray-700 text-center"> {t('Register')}</h2>
                 {message201===""?(         
                 <>    
                 <div className="relative">
-                    <label htmlFor="name" className="text-gray-600">Name</label>
+                    <label htmlFor="name" className="text-gray-600"> {t('Name')} </label>
                     <div className="flex items-center mt-1">
                         <AiOutlineUser className="absolute left-3 text-gray-400" size={20} />
                         <input
@@ -70,7 +72,7 @@ const RegistrationForm = () => {
                 </div>
 
                 <div className="relative">
-                    <label htmlFor="email" className="text-gray-600">Email Address</label>
+                    <label htmlFor="email" className="text-gray-600"> {t('Email Address')} </label>
                     <div className="flex items-center mt-1">
                         <AiOutlineMail className="absolute left-3 text-gray-400" size={20} />
                         <input
@@ -85,7 +87,7 @@ const RegistrationForm = () => {
                 </div>
 
                 <div className="relative">
-                    <label htmlFor="password" className="text-gray-600">Password</label>
+                    <label htmlFor="password" className="text-gray-600"> {t('Password')} </label>
                     <div className="flex items-center mt-1">
                         <AiOutlineLock className="absolute left-3 text-gray-400" size={20} />
                         <input
@@ -102,7 +104,7 @@ const RegistrationForm = () => {
                     ):(
                         <div className="bg-red-500 text-white p-2 mt-2 rounded-md">{message}</div>
                     )}
-                  
+                   
                     
                 </div>
                     </>
@@ -115,16 +117,19 @@ const RegistrationForm = () => {
                     type="submit"
                     className="w-full bg-blue-500 text-white py-2 rounded-lg font-medium hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 transition-all duration-300"
                 >
-                    Register
+                    
+                    {t('Register')}
+
                 </button>
 
-                <div className="text-center text-gray-500 mt-4">Or register with:</div>
+                <div className="text-center text-gray-500 mt-4"> {t('Or register with')}</div>
                 
             </form>
-            <SocialLogins />
+            <SocialLogins t={t} />
             <p className="my-3">
-              Already have an account?
-            <Link href="/login" className="mx-2 underline">Login</Link>
+              
+              {t('Already have an account?')}
+            <Link href="/login" className="mx-2 underline">{t('Go to Login')}</Link>
             </p>
         </div>
     );

@@ -1,18 +1,35 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaBars, FaTimes, FaUserCircle  } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
 
 import Cookies from 'js-cookie'
-import {useTranslations} from 'next-intl';
-import { useRouter } from "next/navigation";
 
+import { useRouter } from "next/navigation";
+import { GrLanguage } from "react-icons/gr";
+
+import GetDefaultLanguage from "../lib/getDefaultLanguage" 
+
+import {useTranslations} from 'next-intl';
+ 
+ 
 
 const Navbar = ({session}) => {
+    const t = useTranslations('NavBar');
+   
+
+    const [language, setLanguage] = useState('');
+
+    useEffect(() => {
+        const lang = GetDefaultLanguage();
+        setLanguage(lang);
+    }, []);
+
 
     const router = useRouter();
-    const t = useTranslations('NavBar');
+   
+
 
     const setEnglish = async (L) => {
         await Cookies.set('lan', L);
@@ -25,7 +42,7 @@ const Navbar = ({session}) => {
           // alert( document.cookie.match(new RegExp("ar|en")));
           };
 
-     
+  
     const [isOpen, setIsOpen] = useState(false);
     const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -37,7 +54,7 @@ const Navbar = ({session}) => {
         <header className="bg-gray-800 text-white shadow-md sticky top-0 z-50 ">
             <div className="container mx-auto px-4 flex justify-between items-center h-16">
                 {/* Logo */}
-                <h1 className="text-2xl font-bold">Chat with PDFs</h1>
+                <h1 className="text-2xl font-bold">{t('Chat with PDF files')}</h1>
 
                 {/* Toggle Button */}
                 <button
@@ -66,24 +83,18 @@ const Navbar = ({session}) => {
                                 href="/"
                                 className="block py-2 px-4 rounded hover:bg-gray-700 md:hover:bg-transparent transition-all"
                             >
-                                Home
+                                {t('Home')}
                             </Link>
                         </li>
-                        <li>
-                            <Link
-                                href="/features"
-                                className="block py-2 px-4 rounded hover:bg-gray-700 md:hover:bg-transparent transition-all"
-                            >
-                                Features
-                            </Link>
-                        </li>
+                       
                     
                         <li>
                             <Link
                                 href="/pricing"
                                 className="block py-2 px-4 rounded hover:bg-gray-700 md:hover:bg-transparent transition-all"
                             >
-                                Pricing
+                                
+                                {t('Pricing')}
                             </Link>
                         </li>
                         <li>
@@ -91,12 +102,32 @@ const Navbar = ({session}) => {
                                 href="/contact"
                                 className="block py-2 px-4 rounded hover:bg-gray-700 md:hover:bg-transparent transition-all"
                             >
-                                Contact
+                                
+                                {t('Contact')}
                             </Link>
                         </li>
 
-                        <a  onClick={()=>{setEnglish('en')}} href="/" className="block px-4 py-2 text-gray-700 hover:bg-gray-200 transition-colors"> En </a>
-                        <a onClick={()=>{setArabic('ar')}} href="/" className="block px-4 py-2 text-gray-700 hover:bg-gray-200 transition-colors"> Ar </a>
+                      {/* Features with Dropdown */}
+                       <li className="relative">
+                            <button
+                                onClick={toggleDropdown}
+                                className="flex justify-center items-center gap-1 py-2 px-4 rounded hover:bg-gray-700 md:hover:bg-transparent transition-all"
+                            >
+                               <GrLanguage />  {language}
+                            </button>
+                            {dropdownOpen && (
+                                <ul className="absolute left-0 mt-2 bg-gray-700 text-white rounded shadow-md w-48">
+                                    <li>
+                                    <a  onClick={()=>{setEnglish('en')}} href="/"   className="block px-4 py-2 hover:bg-gray-600 transition-colors"> English </a>
+
+                                     </li>
+                                    <li>
+                                    <a onClick={()=>{setArabic('ar')}} href="/"   className="block px-4 py-2 hover:bg-gray-600 transition-colors"> عربي </a>
+                                     </li>
+                                </ul>
+                            )}
+                        </li>
+
 
 
                     </ul>
@@ -121,7 +152,8 @@ const Navbar = ({session}) => {
                                 <FaUserCircle />
                             )}
                            
-                              Dashboard
+                               
+                              {t('Dashboard')}
                          </button>
                           </Link>
                      </div>
@@ -129,12 +161,13 @@ const Navbar = ({session}) => {
                     <div className="hidden md:flex space-x-4">
                     <Link href="/login" >
                         <button className="px-4 py-2 bg-gray-700 text-white rounded hover:bg-gray-600 focus:ring-4 focus:ring-gray-500 transition-all">
-                            Login
+                            {t('Login')}
                         </button>
                         </Link>
                         <Link href="/register" >
                         <button className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 focus:ring-4 focus:ring-blue-300 transition-all">
-                            Try for Free
+                            
+                            {t('Try for Free')}
                         </button>
                          </Link>
                     </div>

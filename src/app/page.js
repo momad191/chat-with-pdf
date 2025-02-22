@@ -12,7 +12,7 @@ export default async function Page() {
     <>
     <Navbar session={session} />
 
-    <Home />
+    <Home session={session} /> 
      
  
     </>
