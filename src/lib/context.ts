@@ -1,6 +1,7 @@
+import OpenAI from "openai";
 import { Pinecone } from "@pinecone-database/pinecone";
 import { convertToAscii } from "./utils";
-import { getEmbeddings } from "./embeddings";
+import { getEmbeddings } from "./embeddings"; 
 
 export async function getMatchesFromEmbeddings(
   embeddings: number[],

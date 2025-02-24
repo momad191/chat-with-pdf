@@ -4,6 +4,7 @@ import { ChatOpenAI } from "@langchain/openai";
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import { MemoryVectorStore } from "langchain/vectorstores/memory";
 import { OpenAIEmbeddings } from "@langchain/openai";
+import { CohereEmbeddings } from "@langchain/cohere";
 import { ChatPromptTemplate } from "@langchain/core/prompts";
 import { createRetrievalChain } from "langchain/chains/retrieval";
 import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
@@ -46,14 +47,19 @@ try {
       chunkOverlap: 100,
     });
 
-  
+   
     const splits = await textSplitter.splitDocuments(docs);
     const vectorstore = await MemoryVectorStore.fromDocuments(
       splits,
+      // new CohereEmbeddings({
+      //   model: "embed-english-v3.0"
+      // })
       new OpenAIEmbeddings({
          model: "text-embedding-3-large"
         // model: "text-embedding-ada-002" 
       })
+
+    
     );
 
 

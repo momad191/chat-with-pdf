@@ -43,7 +43,7 @@ const UploadFileUi10 = () => {
     setIsWORD(false)
     setIsURL(false)
   }
-
+    
   const changeToWORD = () =>{
     setIsPDF(false)
     setIsTXT(false)

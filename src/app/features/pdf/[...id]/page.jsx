@@ -1,7 +1,7 @@
  
-import PdfUi4 from "../PdfUi4";
-// import PdfUi2 from "../PdfUi2";
-import { Redis } from '@upstash/redis'
+//import PdfUi4 from "../PdfUi4";
+ import PdfUi2 from "../PdfUi2";
+import { Redis } from '@upstash/redis' 
 
 const redis = new Redis({
   url: 'https://suited-finch-58820.upstash.io',
@@ -15,13 +15,13 @@ export default async function Page({ params }) {
       console.log(`Data for key "${key}":`, listData);
       return listData.reverse();
     }
-    
+     
   // Usage
   const chat_data = await getAllListData([`${id}`])
    return ( 
     <div>
-      <PdfUi4 file_id={id}  chat_data={chat_data} />  
-      {/* <PdfUi2 file_id={id} chat_data={chat_data} />       */}
+      {/* <PdfUi4 file_id={id}  chat_data={chat_data} />   */}
+      <PdfUi2 file_id={id} chat_data={chat_data} />      
     </div>
   );
 }

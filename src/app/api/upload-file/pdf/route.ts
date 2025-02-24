@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { join ,extname } from 'path';
 import { createFile } from "@/queries/files";
 import { dbConnect } from "@/lib/mongo";
-import { loadS3IntoPineconePDF } from "@/lib/pineconePDF";   
+// import { loadS3IntoPineconePDF } from "@/lib/pineconePDF";   
 import { auth } from "@/auth";
 
 const server_url = process.env.NEXT_BASE_URL ;
@@ -51,4 +51,4 @@ export async function POST(request: NextRequest) {
     console.error('Error writing file:', error);
     return NextResponse.json({ success: false });
   }
-}
+} 

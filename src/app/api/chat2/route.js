@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { ChatOpenAI } from "@langchain/openai";
-import { ChatPromptTemplate } from "@langchain/core/prompts";
+import { ChatPromptTemplate } from "@langchain/core/prompts"; 
 import { auth } from "@/auth";
 import { getContext } from "@/lib/context";    
 

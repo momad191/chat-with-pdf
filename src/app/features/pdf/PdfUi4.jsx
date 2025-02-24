@@ -20,7 +20,7 @@ function PdfUi4({ file_id,chat_data }) {
       setMessages(newMessages);
       setInput("");
       setLoading(true);
-
+ 
       try {
         const response = await fetch("/api/chat", {
           method: "POST",

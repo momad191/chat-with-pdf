@@ -32,7 +32,7 @@ export default function UploadFormForPdf() {
       setResponseMessage("Please select a file to upload.");
       return;
     }
-
+ 
     setIsUploading(true);
     setResponseMessage(null);
 
@@ -60,7 +60,7 @@ export default function UploadFormForPdf() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
+    <div className="flex justify-center items-center min-h-screen bg-white p-4">
       <form
         onSubmit={onSubmit}
         className="bg-white text-gray-800 rounded-lg shadow-lg p-8 flex flex-col gap-4 w-full max-w-lg"
@@ -69,7 +69,7 @@ export default function UploadFormForPdf() {
           <FaRegFilePdf className="text-red-500" />
           {t("Upload your")} <span className="text-sky-500">{t("PDF Files")}</span>
         </h2>
-
+ 
         <div
           {...getRootProps()}
           className={`border-2 border-dashed p-6 rounded-lg cursor-pointer transition ${
