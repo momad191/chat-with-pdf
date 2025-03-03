@@ -15,9 +15,9 @@ const nextConfig = {
       },
     ],
   },
-  api: {
-    bodyParser: true, // Ensure this is enabled
-  },
+  // api: {
+  //   bodyParser: true, // Ensure this is enabled
+  // },
 };
 
  

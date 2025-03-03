@@ -8,7 +8,7 @@ import { auth } from "@/auth";
 
 const server_url = process.env.NEXT_BASE_URL ;
 
-export async function POST(request: NextRequest) { 
+export async function POST(request: NextRequest) {   
   await dbConnect() 
   const session = await auth();
   if (!session) {
