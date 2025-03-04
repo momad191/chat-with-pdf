@@ -5,7 +5,7 @@ import { GiLevelFour } from "react-icons/gi";
 import UploadFormForPdf from "./Form-for-pdf";
 import UploadFormForTxt from "./Form-for-txt";
 import UploadFormForWord from "./Form-for-word";
-import UploadFormForUrl from "./Form-for-url";
+import UploadFormForCsv from "./Form-for-csv";
 
 const UploadFileUi10 = () => {
   const [files, setFiles] = useState([]);
@@ -31,30 +31,30 @@ const UploadFileUi10 = () => {
   const [isPDF, setIsPDF] = useState(true);
   const [isTXT, setIsTXT] = useState(false);
   const [isWORD, setIsWORD] = useState(false);
-  const [isURL, setIsURL] = useState(false);
+  const [isCSV, setIsCSV] = useState(false);
 
   const changeToPDF = () => {
     setIsPDF(true);
     setIsTXT(false);
     setIsWORD(false);
-    setIsURL(false);
+    setIsCSV(false);
   };
 
   const changeToWORD = () => {
     setIsPDF(false);
     setIsTXT(false);
     setIsWORD(true);
-    setIsURL(false);
+    setIsCSV(false);
   };
 
   const changeToTXT = () => {
     setIsPDF(false);
     setIsTXT(true);
     setIsWORD(false);
-    setIsURL(false);
+    setIsCSV(false);
   };
-  const changeToURL = () => {
-    setIsURL(true);
+  const changeToCsv = () => {
+    setIsCSV(true);
     setIsPDF(false);
     setIsTXT(false);
     setIsWORD(false);
@@ -75,42 +75,44 @@ const UploadFileUi10 = () => {
           <button
             onClick={changeToPDF}
             className={`bg-sky-300 text-black p-7 hover:bg-sky-500 hover:text-white 
-        ${isPDF && `bg-gray-900 text-white`}
+        ${isPDF && "bg-sky-800 text-white"}
         `}
           >
             PFD Files
           </button>
 
-          <button onClick={changeToWORD}
-             className={`bg-sky-300 text-black p-7 hover:bg-sky-500 hover:text-white  
-              ${isWORD && `bg-gray-900 text-white`}
-              `}
-            >
-        WORD Files 
-
-        </button>
-
-          <button onClick={changeToTXT} 
+          <button
+            onClick={changeToWORD}
             className={`bg-sky-300 text-black p-7 hover:bg-sky-500 hover:text-white  
-              ${isTXT && `bg-gray-900 text-white`}
+              ${isWORD && `bg-sky-800 text-white`}
               `}
-            >
-        .TXT Files 
-        </button>
+          >
+            WORD Files
+          </button>
 
-          {/* <button onClick={changeToURL} 
+          <button
+            onClick={changeToTXT}
             className={`bg-sky-300 text-black p-7 hover:bg-sky-500 hover:text-white  
-              ${isURL && `bg-gray-900 text-white`}
+              ${isTXT && `bg-sky-800 text-white`}
               `}
-            > 
-        Web page (URL)  
-        </button> */}
+          >
+            .TXT Files
+          </button>
+
+           <button
+            onClick={changeToCsv}
+            className={`bg-sky-300 text-black p-7 hover:bg-sky-500 hover:text-white  
+              ${isCSV && `bg-sky-800 text-white`}
+              `}
+          >
+            .CSV Files
+          </button>
         </div>
         <div className="md:flex  justfy-center  items-center  ">
           {isPDF && <UploadFormForPdf />}
-          {isTXT && <UploadFormForTxt />} 
-          {isWORD && <UploadFormForWord />} 
-          {isURL && <UploadFormForUrl />}
+          {isTXT && <UploadFormForTxt />}
+          {isWORD && <UploadFormForWord />}
+          {isCSV && <UploadFormForCsv />}
         </div>
       </div>
     );

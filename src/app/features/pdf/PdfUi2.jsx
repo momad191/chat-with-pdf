@@ -2,15 +2,21 @@
 import Image from "next/image";
 import React, { useState, useEffect, useRef } from "react";
 import { FaUser } from "react-icons/fa";
+import { TbFileTypeDocx } from "react-icons/tb";
+import { GrDocumentCsv } from "react-icons/gr";
 import { Chat } from "./pdfAction";
 import { ChatForTXT } from "./txtAction";
 import { ChatForDOCX } from "./docxAction";
+import { ChatForCSV } from "./csvAction";
 
-import { extname } from 'path';
+import Docx from "./viewer/docx";
+import Csv from "./viewer/csv";
+ 
+
+import { extname } from "path";
 function PdfUi2({ file_id, chat_data }) {
-const [file, setFile] = useState({});
-const fileExtension = file.file_name ? extname(file.file_name) : "";
-
+  const [file, setFile] = useState({});
+  const fileExtension = file.file_name ? extname(file.file_name) : "";
 
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
@@ -19,7 +25,6 @@ const fileExtension = file.file_name ? extname(file.file_name) : "";
   const messageEndRef = useRef(null);
 
   const toggleChatbot = () => setIsOpen(!isOpen);
-
 
   useEffect(() => {
     async function fetchFiles() {
@@ -31,9 +36,10 @@ const fileExtension = file.file_name ? extname(file.file_name) : "";
         console.error("Error fetching files:", error);
       }
     }
-  
+
     fetchFiles();
   }, [file_id]); // Ensure file_id is a dependency
+
 
 
 
@@ -45,7 +51,6 @@ const fileExtension = file.file_name ? extname(file.file_name) : "";
       setLoading(true);
 
       try {
-       
         const response = await Chat(input, file.file_name, file_id);
         setLoading(false);
 
@@ -73,8 +78,6 @@ const fileExtension = file.file_name ? extname(file.file_name) : "";
     }
   };
 
-
-
   const sendMessageTXT = async () => {
     if (input.trim()) {
       const newMessages = [...messages, { sender: "user", text: input }];
@@ -83,7 +86,6 @@ const fileExtension = file.file_name ? extname(file.file_name) : "";
       setLoading(true);
 
       try {
-       
         const response = await ChatForTXT(input, file.file_name, file_id);
         setLoading(false);
 
@@ -111,8 +113,6 @@ const fileExtension = file.file_name ? extname(file.file_name) : "";
     }
   };
 
-
-
   const sendMessageDOCX = async () => {
     if (input.trim()) {
       const newMessages = [...messages, { sender: "user", text: input }];
@@ -121,7 +121,6 @@ const fileExtension = file.file_name ? extname(file.file_name) : "";
       setLoading(true);
 
       try {
-       
         const response = await ChatForDOCX(input, file.file_name, file_id);
         setLoading(false);
 
@@ -149,6 +148,40 @@ const fileExtension = file.file_name ? extname(file.file_name) : "";
     }
   };
 
+  const sendMessageCSV = async () => {
+    if (input.trim()) {
+      const newMessages = [...messages, { sender: "user", text: input }];
+      setMessages(newMessages);
+      setInput("");
+      setLoading(true);
+
+      try {
+        const response = await ChatForCSV(input, file.file_name, file_id);
+        setLoading(false);
+
+        // Show typing effect by splitting response text
+        let index = 0;
+        const responseText = { sender: "bot", text: "" };
+        const streamInterval = setInterval(() => {
+          if (index < response.length) {
+            responseText.text += response[index];
+            setMessages((prevMessages) => [
+              ...prevMessages.slice(0, -1),
+              responseText,
+            ]);
+            index++;
+          } else {
+            clearInterval(streamInterval);
+          }
+        }, 10);
+
+        setMessages((prevMessages) => [...prevMessages, responseText]);
+      } catch (error) {
+        console.error("Error fetching response:", error);
+        setLoading(false);
+      }
+    }
+  };
 
   useEffect(() => {
     if (messageEndRef.current) {
@@ -158,33 +191,115 @@ const fileExtension = file.file_name ? extname(file.file_name) : "";
 
   const handleEnterKey = (event) => {
     const fileExtension = extname(file.file_name);
-    if(fileExtension === ".pdf" && event.key === "Enter" ){
+
+    if (fileExtension === ".pdf" && event.key === "Enter") {
       sendMessage();
     }
-    if(fileExtension === ".txt" && event.key === "Enter" ){
+    if (fileExtension === ".txt" && event.key === "Enter") {
       sendMessageTXT();
     }
-    if(fileExtension === ".docx" && event.key === "Enter" ){
+    if (fileExtension === ".docx" && event.key === "Enter") {
       sendMessageDOCX();
     }
-    
-   
+    if (fileExtension === ".csv" && event.key === "Enter") {
+      sendMessageCSV();
+    }
   };
 
- 
- 
-  
+  const handleSubmitButton = () => {
+    const fileExtension = extname(file.file_name);
+
+    if (fileExtension === ".pdf") {
+      sendMessage();
+    }
+    if (fileExtension === ".txt") {
+      sendMessageTXT();
+    }
+    if (fileExtension === ".docx") {
+      sendMessageDOCX();
+    }
+    if (fileExtension === ".csv") {
+      sendMessageCSV();
+    }
+  };
+
+
+
+  const handleSummaryMessage = async () => {
+    const msg="summarize the provided context"
+    if (msg.trim()) {
+      const newMessages = [...messages, { sender: "user", text:msg }];
+      setMessages(newMessages);
+       setInput("");
+      setLoading(true);
+
+      try {
+        const response = await Chat(msg, file.file_name, file_id);
+        setLoading(false);
+
+        // Show typing effect by splitting response text
+        let index = 0;
+        const responseText = { sender: "bot", text: "" };
+        const streamInterval = setInterval(() => {
+          if (index < response.length) {
+            responseText.text += response[index];
+            setMessages((prevMessages) => [
+              ...prevMessages.slice(0, -1),
+              responseText,
+            ]);
+            index++;
+          } else {
+            clearInterval(streamInterval);
+          }
+        }, 10);
+
+        setMessages((prevMessages) => [...prevMessages, responseText]);
+      } catch (error) {
+        console.error("Error fetching response:", error);
+        setLoading(false);
+      }
+    }
+  };
 
   return (
-    <div className="flex bottom-4 right-4">
-      {fileExtension===".docx"?(
-        <div className="w-[50%] h-screen items-center justify-center"> <button> Dwoload </button></div>
-      ):(
-      <iframe src={`${file.file_url}`} className="w-[50%] h-screen"></iframe>
-      )}
+    <div className="flex bottom-4 right-4 bg-white">
+      {fileExtension === ".docx" && (
+        <div className="w-[60%]  items-center justify-center">
+          <button className="bg-gray-800 text-white p-8 flex items-center justify-center gap-4 w-full h-21  text-4xl">
+            <TbFileTypeDocx /> this is Word Docx file
+          </button>
       
+          <Docx filePath={`/uploads/${file.user_email}/${file.file_name}`} />
 
-      <div className=" w-[50%] h-screen bg-[#27272c] text-white   shadow-lg flex flex-col transition-all duration-500">
+        </div>
+      )}
+
+      {fileExtension === ".csv" && (
+        <div className="w-[50%]  items-center justify-center">
+          <button className="bg-gray-800 text-white p-8 flex items-center justify-center gap-4 w-full h-21  text-4xl">
+            <GrDocumentCsv /> this is CSV file
+          </button>
+          <Csv filePath={`/uploads/${file.user_email}/${file.file_name}`} />
+          
+        </div>
+      )}
+
+      {fileExtension === ".pdf" && (
+        <iframe src={`${file.file_url}`} className="w-[50%] h-screen"></iframe>
+      )}
+      {fileExtension === ".txt" && (
+     <iframe src={`${file.file_url}`} className="w-[50%] h-screen"></iframe>
+        
+      )}
+
+      <div
+        className={`h-screen bg-[#27272c] text-white   shadow-lg flex flex-col transition-all duration-500
+           ${
+             fileExtension === ".docx" || fileExtension === ".docx"
+               ? `w-[50%]`
+               : "w-[50%]"
+           } `}
+      >
         <header className="flex justify-between p-3 border-b border-black">
           <div className="flex flex-row items-center justify-start ">
             <Image
@@ -285,6 +400,13 @@ const fileExtension = file.file_name ? extname(file.file_name) : "";
         </div>
 
         {/* Input Area */}
+        <button
+            onClick={handleSummaryMessage}
+            className="  w-[50%] mt-10 ml-5  bg-white text-black  items-center justify-center"
+          >
+            ➤ give me a summary about the provided context 
+          </button>
+
         <div className="p-3 flex items-center">
           <input
             type="text"
@@ -295,11 +417,13 @@ const fileExtension = file.file_name ? extname(file.file_name) : "";
             className="flex-1 px-3 py-2 rounded-full text-black focus:outline-none"
           />
           <button
-            onClick={sendMessage}
+            onClick={handleSubmitButton}
             className="ml-1 w-10 h-10 bg-accent rounded-full flex items-center justify-center"
           >
             ➤
           </button>
+
+      
         </div>
       </div>
     </div>

@@ -35,7 +35,7 @@ const FilesTable = ({ session }) => {
       </div>
     );
   }
- 
+
   if (files.length < 1) {
     return (
       <div className="xl:flex md:flex bg-white text-black items-center justify-center h-screen ">
@@ -48,7 +48,6 @@ const FilesTable = ({ session }) => {
             </button>
           </Link>
         </div>
-        
       </div>
     );
   }
@@ -56,7 +55,7 @@ const FilesTable = ({ session }) => {
   return (
     <div className="xl:flex md:flex bg-white text-black items-center justify-center h-screen">
       <SidebarWrapper session={session} />
-      <div className="container mx-auto px-4 py-6 h-screen lg:mr-[5%] lg:w-[70%]  md:mr-[5%] md:w-[60%] sm:w-[90%]">
+      <div className="container mx-auto px-4 py-6 h-screen xl:w-[75%] lg:mr-[5%] lg:w-[70%]  md:mr-[5%] md:w-[60%] sm:w-[90%]">
         <h1 className="text-2xl font-bold mb-4">
           {t("Files")} ({files.length})
         </h1>
@@ -95,7 +94,6 @@ const FilesTable = ({ session }) => {
           </table>
         </div>
       </div>
-
     </div>
   );
 };

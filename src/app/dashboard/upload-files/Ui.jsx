@@ -5,7 +5,7 @@ import { GiLevelFour } from "react-icons/gi";
 import UploadFormForPdf from "./Form-for-pdf";
 import UploadFormForTxt from "./Form-for-txt";
 import UploadFormForWord from "./Form-for-word";
-import UploadFormForUrl from "./Form-for-url";
+import UploadFormForCsv from "./Form-for-csv";
 
 const UploadFileUi = () => {
   const [files, setFiles] = useState([]);
@@ -81,36 +81,38 @@ const UploadFileUi = () => {
             PFD Files
           </button>
 
-          <button onClick={changeToWORD}
-             className={`bg-sky-300 text-black p-7 hover:bg-sky-500 hover:text-white  
+          <button
+            onClick={changeToWORD}
+            className={`bg-sky-300 text-black p-7 hover:bg-sky-500 hover:text-white  
               ${isWORD && `bg-gray-900 text-white`}
               `}
-            >
-        WORD Files 
+          >
+            WORD Files
+          </button>
 
-        </button>
-
-          <button onClick={changeToTXT} 
+          <button
+            onClick={changeToTXT}
             className={`bg-sky-300 text-black p-7 hover:bg-sky-500 hover:text-white  
               ${isTXT && `bg-gray-900 text-white`}
               `}
-            >
-        .TXT Files 
-        </button>
+          >
+            .TXT Files
+          </button>
 
-          {/* <button onClick={changeToURL} 
+           <button
+            onClick={changeToURL}
             className={`bg-sky-300 text-black p-7 hover:bg-sky-500 hover:text-white  
               ${isURL && `bg-gray-900 text-white`}
               `}
-            > 
-        Web page (URL)  
-        </button> */}
+          >
+            .CSV Files
+          </button> 
         </div>
         <div className="md:flex  justfy-center  items-center  ">
           {isPDF && <UploadFormForPdf />}
-          {isTXT && <UploadFormForTxt />} 
-          {isWORD && <UploadFormForWord />} 
-          {isURL && <UploadFormForUrl />}
+          {isTXT && <UploadFormForTxt />}
+          {isWORD && <UploadFormForWord />}
+          {isURL && <UploadFormForCsv />}
         </div>
       </div>
     );
