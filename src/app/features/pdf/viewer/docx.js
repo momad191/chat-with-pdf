@@ -33,15 +33,14 @@ function DocxViewer({ filePath }) {
   }, [filePath]);
 
   return (
-    <div className="mt-4">
-    
+    <div className="mt-4 ">
       {error && <div style={{ color: "red" }}>{error}</div>}
       <div
         ref={viewerRef}
         style={{
           border: "1px solid #ccc",
           padding: "16px",
-          height: "500px",
+          height: "750px",
           overflow: "scroll",
         }}
       ></div>

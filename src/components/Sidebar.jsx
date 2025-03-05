@@ -5,7 +5,7 @@ import { MdOutlineHome } from "react-icons/md";
 import { MdMarkEmailRead } from "react-icons/md";
 
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/image"; 
 import Logout from "@/components/Logout";
 import { useTranslations } from "next-intl";
 
@@ -15,8 +15,8 @@ const Sidebar = ({ isOpen, session }) => {
     <>
       {/* Sidebar */}
       <div
-        className={`absolute xl:w-[260px] md:w-[260px] w-[60%]  top-0 left-0 h-screen bg-gray-800 text-white shadow-lg transform transition-transform duration-300 ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
+        className={` xl:w-[300px] h-screen bg-gray-800 text-white shadow-lg transform transition-transform duration-300 ${
+          isOpen ? "relative" : "hidden"
         } w-64`}
       >
         <div className="p-4 border-b border-gray-700  items-center justify-between">
@@ -29,7 +29,7 @@ const Sidebar = ({ isOpen, session }) => {
                 alt={session?.user?.name}
                 width={72}
                 height={72}
-                className="rounded-full"
+                className="rounded-full mt-10"
               />
               <h1 className="text-md  my-2">
                 {t("Hi")} , {session?.user?.name}
@@ -57,7 +57,7 @@ const Sidebar = ({ isOpen, session }) => {
             / <MdOutlineHome className="mr-3" size={18} />
           </Link>
         </div>
-
+ 
         <nav className="p-4 space-y-2 ">
           <Link
             href="/dashboard"
