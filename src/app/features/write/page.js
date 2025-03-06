@@ -1,5 +1,5 @@
 import SidebarWrapper from "@/components/SidebarWrapper";
-import SidebarWrapperEmail from "@/components/SidebarWrapperEmail";
+import SidebarWrapperEmail from "./SidebarWrapperEmail";
 import { auth } from "@/auth";
 import PromptInput from "./PromptInput";
 const Write = async() => {
@@ -7,10 +7,10 @@ const Write = async() => {
     if (!session?.user) redirect("/");
 
   return (
-    <div className=" md:flex  bg-gray-800 ">
+    <div className=" lg:flex  bg-gray-800 ">
       <SidebarWrapper session={session} />
       <div
-        className={` relative  w-full h-screen bg-gray-800 text-white shadow-lg transform transition-transform duration-300 w-84`}
+        className={` relative  md:w-full h-screen bg-gray-800 text-white shadow-lg transform transition-transform duration-300 w-84`}
       > 
     
     <PromptInput />

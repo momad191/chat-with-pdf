@@ -15,9 +15,9 @@ const Sidebar = ({ isOpen, session }) => {
     <>
       {/* Sidebar */}
       <div
-        className={` xl:w-[300px] h-screen bg-gray-800 text-white shadow-lg transform transition-transform duration-300 ${
+        className={`w-full lg:w-[450px] h-screen bg-gray-800 text-white shadow-lg transform transition-transform duration-300 ${
           isOpen ? "relative" : "hidden"
-        } w-64`}
+        }  `}
       >
         <div className="p-4 border-b border-gray-700  items-center justify-between">
           {/* <h2 className="text-xl font-semibold">Chat with PDFs</h2> */}
@@ -67,11 +67,20 @@ const Sidebar = ({ isOpen, session }) => {
             {t("Add new File")}
           </Link>
           <Link
-            href="/dashboard/write"
+            href="/features/write"
             className="flex items-center p-2 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-white transition-all"
           >
             <MdMarkEmailRead className="mr-3" size={18} />
             Write Email
+          </Link>
+
+ 
+          <Link
+            href="/features/write/all"
+            className="flex items-center p-2 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-white transition-all"
+          >
+            <MdMarkEmailRead className="mr-3" size={18} />
+            My Emails
           </Link>
 
           <Link
