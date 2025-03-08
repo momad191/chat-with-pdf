@@ -9,7 +9,7 @@
     "Try for Free": "Try for Free"
   },
   "Home": {
-    "Chat with your files": "Chat with your files",
+    "Chat with your files": "Helps you chat with your files and write messages.",
     "Let AI summarize, find information, translate, transcribe, and get citations from your files in seconds": "Let AI summarize, find information, translate, transcribe, and get citations from your files in seconds",
     "Upload your Files": "Upload your Files",
     "Easily add your files and start chat them": "Easily add your files and start chat and summaraize them.",
@@ -148,5 +148,10 @@
     "Example:":"Example:",
     "Hi team, lets share a coffee together and start our meeting":"Hi team, lets share a coffee together and start our meeting",
     "Generate Email":"Generate Email"
+  },
+  "OneEmailUi":{
+    "Email Details":"Email Details",
+     "Subject":"Subject",
+     "Write new Email":"Write new Email"
   }
 }

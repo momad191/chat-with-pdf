@@ -1,5 +1,6 @@
  "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { MdEmail } from "react-icons/md";
 
@@ -29,10 +30,20 @@ const AllEmails = () => {
 
   if (loading) {
     return (
-      <div className="xl:flex md:flex bg-gray-800 text-white items-center justify-center h-screen w-full">
-    
-        <p className="text-lg font-semibold">Loading...</p>
-      </div>
+              <div className="flex flex-col items-center bg-gray-800 justify-center h-screen w-screen  ">
+                  <p className="items-center justify-center  text-white font-semibold transform transition-all duration-700 ease-in-out animate-bounce">
+                     
+                  <Image
+                    src="/chatbot.png"
+                    width={300}
+                    height={200}
+                    alt="files-image"
+                    className="left-0"
+                  />
+                
+                  </p>
+                 
+                </div>
     );
   }
 

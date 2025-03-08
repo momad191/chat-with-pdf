@@ -29,7 +29,7 @@ const SidebarEmail = ({ isOpen, session }) => {
  
 
   const [language, setLanguage] = useState("");
-  const [text_type, setText_type] = useState("");
+  const [text_type, setText_type] = useState("email");
   const [text_length, setText_length] = useState("");
   const [tone, setTone] = useState("");
   const [use_emoji, setUse_emoji] = useState("");
@@ -107,16 +107,21 @@ const SidebarEmail = ({ isOpen, session }) => {
               <div className="relative  ">
                 <h1>  {t('Text Type:')}  </h1>
                 <div className="flex items-center justify-center gap-4 mt-1">
+                  
                   <button
                     onClick={() => setText_type("email")}
-                    className="flex items-center justify-center gap-2 bg-gray-200 hover:bg-gray-800 hover:text-white text-black rounded-2xl px-4 py-2 border border-white"
+                    className={`flex items-center justify-center gap-2  text-black rounded-2xl px-4 py-2 border border-white 
+                      ${text_type === "email" ?  "bg-sky-500" : "bg-gray-200" }
+                      `}
                   >
                     {" "}
                     <MdEmail /> {t('Email')}  {" "}
                   </button>
                   <button
                     onClick={() => setText_type("masenger")}
-                    className="flex items-center justify-center gap-2 bg-gray-200 hover:bg-gray-800 hover:text-white text-black rounded-2xl px-4 py-2 border border-white"
+                    className={`flex items-center justify-center gap-2 bg-gray-200   text-black rounded-2xl px-4 py-2 border border-white
+                       ${text_type === "masenger" ?  "bg-sky-500" : "bg-gray-200" }
+                      `}
                   >
                     {" "}
                     <FaMessage /> {t('Messenger')} {" "}
@@ -131,21 +136,27 @@ const SidebarEmail = ({ isOpen, session }) => {
                 <div className="flex items-center justify-center gap-1 mt-1 ">
                   <button
                     onClick={() => setText_length("short")}
-                    className="flex items-center justify-center gap-2 bg-gray-200 hover:bg-gray-800 hover:text-white text-black rounded-2xl  px-2 py-2 border border-white"
+                    className={`flex items-center justify-center gap-2  text-black rounded-2xl  px-2 py-2 border border-white
+                       ${text_length === "short" ?  "bg-sky-500" : "bg-gray-200" }
+                      `}
                   >
                     {" "}
                     <FaArrowUpShortWide /> {t('Short')}  {" "}
                   </button>
                   <button
                     onClick={() => setText_length("medium")}
-                    className="flex items-center justify-center gap-2 bg-gray-200 hover:bg-gray-800 hover:text-white text-black rounded-2xl  px-2 py-2 border border-white"
+                    className={`flex items-center justify-center gap-2 text-black rounded-2xl  px-2 py-2 border border-white
+                        ${text_length === "medium" ?  "bg-sky-500" : "bg-gray-200" }
+                      `}
                   >
                     {" "}
                     <FaArrowsDownToLine /> {t('Medium')}  {" "}
                   </button>
                   <button
                     onClick={() => setText_length("long")}
-                    className="flex items-center justify-center gap-2 bg-gray-200 hover:bg-gray-800 hover:text-white text-black rounded-2xl  px-2 py-2 border border-white"
+                    className={`flex items-center justify-center gap-2 text-black rounded-2xl  px-2 py-2 border border-white
+                        ${text_length === "long" ?  "bg-sky-500" : "bg-gray-200" }
+                      `}
                   >
                     {" "}
                     <FaArrowDownWideShort /> {t('Long')}    {" "}
@@ -288,14 +299,18 @@ const SidebarEmail = ({ isOpen, session }) => {
                 <div className="flex items-center justify-start gap-1 mt-2 ">
                   <button
                     onClick={() => setUse_emoji("with_emoji")}
-                    className="bg-gray-200 hover:bg-gray-800 hover:text-white text-black rounded-2xl  px-2 py-2 border border-white"
+                    className={`text-black rounded-2xl  px-2 py-2 border border-white
+                      ${use_emoji === "with_emoji" ?  "bg-sky-500" : "bg-gray-200" }
+                      `}
                   >
                     {" "}
                     {t('With emoji')}  {" "}
                   </button>
                   <button
                     onClick={() => setUse_emoji("no_emoji")}
-                    className="bg-gray-200 hover:bg-gray-800 hover:text-white text-black rounded-2xl  px-2 py-2 border border-white"
+                    className={`text-black rounded-2xl  px-2 py-2 border border-white
+                       ${use_emoji === "no_emoji" ?  "bg-sky-500" : "bg-gray-200" }
+                      `}
                   >
                     {" "}
                     {t('No emoji')}  {" "}
