@@ -28,7 +28,7 @@ const FilesTable = () => {
 
   if (loading) {
     return (
-      <div className="xl:flex md:flex bg-gray-800 text-black items-center justify-center h-screen w-full">
+      <div className="xl:flex md:flex bg-gray-800 text-white items-center justify-center h-screen w-full">
     
         <p className="text-lg font-semibold">Loading...</p>
       </div>

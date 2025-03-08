@@ -43,14 +43,16 @@
   },
   "ScocialRegister": {
     "Sign In With Google": "تسجيل الدخول باستخدام جوجل"
-  },
+  }, 
   "Sidebar": {
     "Hi": "مرحبا",
     "Welcome": "مرحبا",
     "Files": "ملفاتك",
     "Add new File": "اضف ملف جديد",
     "Upgrade": "الترقية",
-    "Account": "حسابك"
+    "Account": "حسابك",
+    "Write Email": "اكتب رسالة",
+    "My Emails": "قائمة الرسائل"
   },
   "SidebarWrapper": {
     "Open Side menu": "فتح القائمة الجانبية",
@@ -104,5 +106,54 @@
   "PdfUi2": {
     "summarize the provided context": "قم بتلخيص السياق المقدم",
     "What is the main idea of the provided context": "ما هي الفكرة الرئيسية للسياق المقدم؟"
-  }
+  },
+
+    "SidebarEmail": {
+      "Output Language:": "لغة الإخراج:",
+      "English": "الإنجليزية",
+      "French": "الفرنسية",
+      "Spanish": "الإسبانية",
+      "German": "الألمانية",
+      "Arabic": "العربية",
+      
+      "Text Type:": "نوع النص:",
+      "Email": "البريد الإلكتروني",
+      "Messenger": "الرسائل الفورية",
+  
+      "Text Length:": "طول النص:",
+      "Short": "قصير",
+      "Medium": "متوسط",
+      "Long": "طويل",
+  
+      "Writing Tone:": "نبرة الكتابة:",
+      "Formal": "رسمي",
+      "Friendly": "ودود",
+      "Brutal": "صارم",
+      "Persuasive": "إقناعي",
+      "Expert": "خبير",
+      "Joyful": "سعيد",
+      "Inspirational": "ملهم",
+      "Informative": "معلوماتي",
+      "Thoughtful": "مدروس",
+      "Cautionary": "تحذيري",
+      "Grieved": "حزين",
+      "Exciting": "مثير",
+      "Loving": "محب",
+      "Confident": "واثق",
+      "Surprised": "مندهش",
+  
+      "Use Emoji": "استخدام الإيموجي",
+      "With emoji": "مع الإيموجي",
+      "No emoji": "بدون إيموجي"
+  
+    },
+
+    "PromptInput": {
+      "Example:": "مثال:",
+      "Hi team, lets share a coffee together and start our meeting": "مرحبًا بالفريق، لنشرب القهوة معًا ونبدأ اجتماعنا:",
+      "Generate Email": "إنشاء بريد إلكتروني"
+
+    }
+  
+  
 }

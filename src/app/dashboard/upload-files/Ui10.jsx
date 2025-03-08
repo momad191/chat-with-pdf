@@ -59,11 +59,11 @@ const UploadFileUi10 = () => {
     setIsTXT(false);
     setIsWORD(false);
   };
-
+ 
   if (loading) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen w-screen bg-white">
-        <p className="text-lg text-black font-semibold">Loading...</p>
+      <div className="flex flex-col items-center bg-gray-800 justify-center h-screen w-screen  ">
+        <p className="text-lg text-white font-semibold">Loading...</p>
       </div>
     );
   }
