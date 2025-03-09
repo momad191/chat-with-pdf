@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import GetDefaultLanguage from "@/lib/getDefaultLanguage";
 
-  
 export default function PromptInput({
   language,
   text_type,
@@ -20,7 +19,7 @@ export default function PromptInput({
   const [messages, setMessages] = useState(null);
   const [loading, setLoading] = useState(false);
   const [complete, setComplete] = useState(false);
-    const t = useTranslations("PromptInput");
+  const t = useTranslations("PromptInput");
 
   const sendMessage = async () => {
     if (prompt.trim()) {
@@ -65,7 +64,7 @@ export default function PromptInput({
         }
         setLoading(false);
         setComplete(true);
-        router.push(`/features/write/all/`)
+        router.push(`/features/write/all/`);
       } catch (error) {
         console.error("Error fetching response:", error);
         setLoading(false);
@@ -73,24 +72,29 @@ export default function PromptInput({
     }
   };
 
-    const [current_language, setCurrent_Language] = useState("");
-    
-    useEffect(() => {
-      const lang = GetDefaultLanguage();
-      setCurrent_Language(lang);
-    }, []);
- 
+  const [current_language, setCurrent_Language] = useState("");
+
+  useEffect(() => {
+    const lang = GetDefaultLanguage();
+    setCurrent_Language(lang);
+  }, []);
+
   return (
-    <div className="w-full p-4 max-h-screen " dir={`${current_language==="ar" ? "rtl":"ltr"}`}>
+    <div
+      className="w-full p-4 max-h-screen "
+      dir={`${current_language === "ar" ? "rtl" : "ltr"}`}
+    >
       {loading && (
-           <div className="xl:flex md:flex bg-gray-800 text-white items-center justify-center h-screen w-full">
-    
-           <p className="text-lg font-semibold">Loading...</p>
-         </div>
+        <div className="xl:flex md:flex bg-gray-800 text-white items-center justify-center h-screen w-full">
+          <p className="text-lg font-semibold">Loading...</p>
+        </div>
       )}
 
       {complete && messages ? (
-        <div className="relative w-full items-center text-black" dir={`${current_language==="ar" ? "rtl":"ltr"}`}>
+        <div
+          className="relative w-full items-center text-black"
+          dir={`${current_language === "ar" ? "rtl" : "ltr"}`}
+        >
           <div className="mt-6 p-4 border rounded bg-gray-50" dir="rtl">
             <h3 className="text-lg font-bold">
               <strong>subject:</strong> {messages.subject}
@@ -110,9 +114,12 @@ export default function PromptInput({
         </div>
       ) : (
         <>
-          <div className="relative w-full" dir={`${current_language==="ar" ? "rtl":"ltr"}`} >
+          <div
+            className="relative w-full"
+            dir={`${current_language === "ar" ? "rtl" : "ltr"}`}
+          >
             <textarea
-            dir={`${current_language==="ar" ? "rtl":"ltr"}`}
+              dir={`${current_language === "ar" ? "rtl" : "ltr"}`}
               className="w-full h-[450px] p-4 bg-gray-800 text-white text-xl border border-gray-800 rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
               placeholder=""
               maxLength={maxChars}
@@ -123,14 +130,19 @@ export default function PromptInput({
             <motion.label
               initial={{ opacity: 0.5, y: 10 }}
               animate={{ opacity: prompt ? 0.7 : 1, y: prompt ? -10 : 0 }}
-              className={`absolute top-4 left-4 text-gray-400 transform transition-all duration-700 ease-in-out animate-bounce 
-            ${prompt === "" ? "" : "hidden"}`}
-            dir={`${current_language==="ar" ? "rtl":"ltr"}`}
+              className={` text-gray-400 transform transition-all duration-700 ease-in-out animate-bounce 
+            ${prompt === "" ? "" : "hidden"} ${
+                current_language === "ar"
+                  ? "absolute top-4 right-4 "
+                  : " absolute top-4 left-4"
+              }`}
+              dir={`${current_language === "ar" ? "rtl" : "ltr"}`}
             >
-              <h1>{t('Example:')}</h1>
-              <p  dir={`${current_language==="ar" ? "rtl":"ltr"}`}>
-              {t('Hi team, lets share a coffee together and start our meeting')}
-                
+              <h1>{t("Example:")}</h1>
+              <p dir={`${current_language === "ar" ? "rtl" : "ltr"}`}>
+                {t(
+                  "Hi team, lets share a coffee together and start our meeting"
+                )}
               </p>
             </motion.label>
 
@@ -147,12 +159,12 @@ export default function PromptInput({
             onClick={sendMessage}
             className={`mt-4 w-full flex items-center justify-center gap-2 border border-white rounded-xl font-semibold px-4 py-2 text-black transition ${
               prompt.trim()
-                ? "bg-[#1abac8] hover:bg-gray-500"
+                ? "bg-sky-500 hover:bg-sky-800"
                 : "bg-gray-400 cursor-not-allowed"
             }`}
             disabled={!prompt.trim()}
           >
-           {t('Generate Email')}  ➤
+            {t("Generate Email")} ➤
           </button>
         </>
       )}

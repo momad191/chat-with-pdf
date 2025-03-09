@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -10,31 +10,71 @@ import { FaArrowUpShortWide } from "react-icons/fa6";
 import { FaArrowsDownToLine } from "react-icons/fa6";
 import PromptInput from "./PromptInput";
 
+import { FaRegFaceGrin } from "react-icons/fa6";
+import { FaRegFaceGrinSquint } from "react-icons/fa6";
+import { FaRegFaceAngry } from "react-icons/fa6";
+import { FaRegFaceGrinTears } from "react-icons/fa6";
+import { FaRegFaceFrown } from "react-icons/fa6";
+import { FaRegFaceGrinStars } from "react-icons/fa6";
+import { FaRegFaceGrinHearts } from "react-icons/fa6";
+import { FaRegFaceSurprise } from "react-icons/fa6";
+import { PiHandshakeLight } from "react-icons/pi";
+import { IoWarningOutline } from "react-icons/io5";
+import { GrCircleInformation } from "react-icons/gr";
+import { TbBulbFilled } from "react-icons/tb";
+import { PiMagnifyingGlass } from "react-icons/pi";
+import { GoTelescope } from "react-icons/go";
+import { HiCursorArrowRipple } from "react-icons/hi2";
+import { HiOutlineHandThumbUp } from "react-icons/hi2";
+import { HiOutlineHandThumbDown } from "react-icons/hi2";
 
-
-
+import GetDefaultLanguage from "@/lib/getDefaultLanguage";
 
 const SidebarEmail = ({ isOpen, session }) => {
   const t = useTranslations("SidebarEmail");
   const languages = [
-    { name: t('English'), code: "English", flag: "https://flagcdn.com/w40/gb.png" },
-    { name: t('French'), code: "French", flag: "https://flagcdn.com/w40/fr.png" },
-    { name: t('Spanish'), code: "Spanish", flag: "https://flagcdn.com/w40/es.png" },
-    { name: t('German'), code: "German", flag: "https://flagcdn.com/w40/de.png" },
-    { name: t('Arabic'), code: "Arabic", flag: "https://flagcdn.com/w40/sa.png" },
+    {
+      name: t("English"),
+      code: "English",
+      flag: "https://flagcdn.com/w40/gb.png",
+    },
+    {
+      name: t("French"),
+      code: "French",
+      flag: "https://flagcdn.com/w40/fr.png",
+    },
+    {
+      name: t("Spanish"),
+      code: "Spanish",
+      flag: "https://flagcdn.com/w40/es.png",
+    },
+    {
+      name: t("German"),
+      code: "German",
+      flag: "https://flagcdn.com/w40/de.png",
+    },
+    {
+      name: t("Arabic"),
+      code: "Arabic",
+      flag: "https://flagcdn.com/w40/sa.png",
+    },
   ];
- 
+
   const [selected, setSelected] = useState(languages[0]);
   const [open, setOpen] = useState(false);
- 
 
-  const [language, setLanguage] = useState("");
+  const [language, setLanguage] = useState("English");
   const [text_type, setText_type] = useState("email");
-  const [text_length, setText_length] = useState("");
-  const [tone, setTone] = useState("");
-  const [use_emoji, setUse_emoji] = useState("");
+  const [text_length, setText_length] = useState("short");
+  const [tone, setTone] = useState("formal");
+  const [use_emoji, setUse_emoji] = useState("with_emoji");
 
+  const [current_language, setCurrent_Language] = useState("");
 
+  useEffect(() => {
+    const lang = GetDefaultLanguage();
+    setCurrent_Language(lang);
+  }, []);
 
   return (
     <>
@@ -52,13 +92,16 @@ const SidebarEmail = ({ isOpen, session }) => {
 
       {/* SidebarEmail */}
       <div
-        className={`relative xl:w-[380px]   md:w-[400px] w-full h-screen   bg-gray-800 text-white shadow-lg transform transition-transform duration-300 
+        className={`relative xl:w-[380px]   md:w-[400px] w-full h-[100%]   bg-gray-800 text-white shadow-lg transform transition-transform duration-300 
           `}
+        dir={`${current_language === "ar" ? "rtl" : "ltr"}`}
       >
         <nav className="p-4 space-y-2 items-center   ">
-          <div className="justify-center items-center p-2 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-white transition-all">
+          <div className="justify-center items-center p-2 text-gray-300 rounded-lg     transition-all">
             <div className="relative w-56">
-              <h1>{t('Output Language:')} {selected.name}</h1>{" "}
+              <h1>
+                {t("Output Language:")} {selected.name}
+              </h1>{" "}
               {/* Displays selected language code */}
               <button
                 onClick={() => setOpen(!open)}
@@ -102,29 +145,33 @@ const SidebarEmail = ({ isOpen, session }) => {
               )}
             </div>
           </div>
-          <div className="flex-col max-h-[340px] w-full  overflow-y-scroll">
+
+          {/* ///////////////////////////////////////////////////Another factors////////////////////////////////////////////////////// */}
+
+          <div className="flex-col max-h-screen w-full  overflow-y-scroll">
             <div className=" justify-center items-center p-2 text-gray-200 rounded-lg transition-all">
               <div className="relative  ">
-                <h1>  {t('Text Type:')}  </h1>
+                <h1> {t("Text Type:")} </h1>
                 <div className="flex items-center justify-center gap-4 mt-1">
-                  
                   <button
                     onClick={() => setText_type("email")}
                     className={`flex items-center justify-center gap-2  text-black rounded-2xl px-4 py-2 border border-white 
-                      ${text_type === "email" ?  "bg-sky-500" : "bg-gray-200" }
+                      ${text_type === "email" ? "bg-sky-500" : "bg-gray-200"}
                       `}
                   >
                     {" "}
-                    <MdEmail /> {t('Email')}  {" "}
+                    <MdEmail /> {t("Email")}{" "}
                   </button>
                   <button
                     onClick={() => setText_type("masenger")}
                     className={`flex items-center justify-center gap-2 bg-gray-200   text-black rounded-2xl px-4 py-2 border border-white
-                       ${text_type === "masenger" ?  "bg-sky-500" : "bg-gray-200" }
+                       ${
+                         text_type === "masenger" ? "bg-sky-500" : "bg-gray-200"
+                       }
                       `}
                   >
                     {" "}
-                    <FaMessage /> {t('Messenger')} {" "}
+                    <FaMessage /> {t("Messenger")}{" "}
                   </button>
                 </div>
               </div>
@@ -132,34 +179,38 @@ const SidebarEmail = ({ isOpen, session }) => {
 
             <div className=" justify-center items-center p-2 text-gray-300 rounded-lg transition-all">
               <div className="relative  ">
-                <h1> {t('Text Length:')} </h1>
+                <h1> {t("Text Length:")} </h1>
                 <div className="flex items-center justify-center gap-1 mt-1 ">
                   <button
                     onClick={() => setText_length("short")}
                     className={`flex items-center justify-center gap-2  text-black rounded-2xl  px-2 py-2 border border-white
-                       ${text_length === "short" ?  "bg-sky-500" : "bg-gray-200" }
+                       ${text_length === "short" ? "bg-sky-500" : "bg-gray-200"}
                       `}
                   >
                     {" "}
-                    <FaArrowUpShortWide /> {t('Short')}  {" "}
+                    <FaArrowUpShortWide /> {t("Short")}{" "}
                   </button>
                   <button
                     onClick={() => setText_length("medium")}
                     className={`flex items-center justify-center gap-2 text-black rounded-2xl  px-2 py-2 border border-white
-                        ${text_length === "medium" ?  "bg-sky-500" : "bg-gray-200" }
+                        ${
+                          text_length === "medium"
+                            ? "bg-sky-500"
+                            : "bg-gray-200"
+                        }
                       `}
                   >
                     {" "}
-                    <FaArrowsDownToLine /> {t('Medium')}  {" "}
+                    <FaArrowsDownToLine /> {t("Medium")}{" "}
                   </button>
                   <button
                     onClick={() => setText_length("long")}
                     className={`flex items-center justify-center gap-2 text-black rounded-2xl  px-2 py-2 border border-white
-                        ${text_length === "long" ?  "bg-sky-500" : "bg-gray-200" }
+                        ${text_length === "long" ? "bg-sky-500" : "bg-gray-200"}
                       `}
                   >
                     {" "}
-                    <FaArrowDownWideShort /> {t('Long')}    {" "}
+                    <FaArrowDownWideShort /> {t("Long")}{" "}
                   </button>
                 </div>
               </div>
@@ -167,127 +218,143 @@ const SidebarEmail = ({ isOpen, session }) => {
 
             <div className=" justify-center items-center p-2 text-gray-300 rounded-lg transition-all">
               <div className="relative ">
-                <h1> {t('Writing Tone:')} </h1>
+                <h1> {t("Writing Tone:")} </h1>
                 <div className="flex items-center justify-start gap-1 mt-2 ">
                   <button
                     onClick={() => setTone("formal")}
-                    className="bg-gray-200 hover:bg-gray-800 hover:text-white text-black rounded-2xl  px-2 py-2 border border-white"
+                    className={` text-black rounded-2xl  px-2 py-2 border border-white
+                         ${tone === "formal" ? "bg-sky-500" : "bg-gray-200"}
+                      `}
                   >
-                    {" "}
-                    {t('Formal')} {" "}
+                    <FaRegFaceGrin /> {t("Formal")}
                   </button>
                   <button
                     onClick={() => setTone("friendly")}
-                    className="bg-gray-200 hover:bg-gray-800 hover:text-white text-black rounded-2xl  px-2 py-2 border border-white"
+                    className={` text-black rounded-2xl  px-2 py-2 border border-white
+                       ${tone === "friendly" ? "bg-sky-500" : "bg-gray-200"}
+                      `}
                   >
-                    {" "}
-                      {t('Friendly')} {" "}
+                    <FaRegFaceGrinSquint /> {t("Friendly")}
                   </button>
                   <button
                     onClick={() => setTone("brutal")}
-                    className="bg-gray-200 hover:bg-gray-800 hover:text-white text-black rounded-2xl  px-2 py-2 border border-white"
+                    className={` text-black rounded-2xl  px-2 py-2 border border-white
+                      ${tone === "brutal" ? "bg-sky-500" : "bg-gray-200"}
+                      `}
                   >
-                    {" "}
-                    {t('Brutal')}  {" "}
+                    <FaRegFaceAngry /> {t("Brutal")}
                   </button>
                 </div>
 
                 <div className="flex items-center justify-start gap-1 mt-2 ">
                   <button
                     onClick={() => setTone("persuasive")}
-                    className="bg-gray-200 hover:bg-gray-800 hover:text-white text-black rounded-2xl  px-2 py-2 border border-white"
+                    className={` text-black rounded-2xl  px-2 py-2 border border-white
+                       ${tone === "persuasive" ? "bg-sky-500" : "bg-gray-200"}
+                      `}
                   >
-                    {" "}
-                     {t('Persuasive')} {" "}
+                    <HiCursorArrowRipple /> {t("Persuasive")}
                   </button>
                   <button
                     onClick={() => setTone("expert")}
-                    className="bg-gray-200 hover:bg-gray-800 hover:text-white text-black rounded-2xl  px-2 py-2 border border-white"
+                    className={` text-black rounded-2xl  px-2 py-2 border border-white
+                       ${tone === "expert" ? "bg-sky-500" : "bg-gray-200"}
+                      `}
                   >
-                    {" "}
-                     {t('Expert')} {" "}
+                    <GoTelescope /> {t("Expert")}
                   </button>
                   <button
                     onClick={() => setTone("joyful")}
-                    className="bg-gray-200 hover:bg-gray-800 hover:text-white text-black rounded-2xl  px-2 py-2 border border-white"
+                    className={` text-black rounded-2xl  px-2 py-2 border border-white
+                       ${tone === "joyful" ? "bg-sky-500" : "bg-gray-200"}
+                      `}
                   >
-                    {" "}
-                    {t('Joyful')}  {" "}
+                    <FaRegFaceGrinTears /> {t("Joyful")}
                   </button>
                 </div>
 
                 <div className="flex items-center justify-start gap-1 mt-2 ">
                   <button
                     onClick={() => setTone("inspirational")}
-                    className="bg-gray-200 hover:bg-gray-800 hover:text-white text-black rounded-2xl  px-2 py-2 border border-white"
+                    className={` text-black rounded-2xl  px-2 py-2 border border-white
+                      ${tone === "inspirational" ? "bg-sky-500" : "bg-gray-200"}
+                     `}
                   >
-                    {" "}
-                    {t('Inspirational')} {" "}
+                    <TbBulbFilled />
+                    {t("Inspirational")}
                   </button>
                   <button
                     onClick={() => setTone("informative")}
-                    className="bg-gray-200 hover:bg-gray-800 hover:text-white text-black rounded-2xl  px-2 py-2 border border-white"
+                    className={` text-black rounded-2xl  px-2 py-2 border border-white
+                      ${tone === "informative" ? "bg-sky-500" : "bg-gray-200"}
+                     `}
                   >
-                    {" "}
-                    {t('Informative')}  {" "}
+                    <GrCircleInformation /> {t("Informative")}
                   </button>
                 </div>
 
                 <div className="flex items-center justify-start gap-1 mt-2 ">
                   <button
                     onClick={() => setTone("thoughtful")}
-                    className="bg-gray-200 hover:bg-gray-800 hover:text-white text-black rounded-2xl  px-2 py-2 border border-white"
+                    className={` text-black rounded-2xl  px-2 py-2 border border-white
+                      ${tone === "thoughtful" ? "bg-sky-500" : "bg-gray-200"}
+                     `}
                   >
-                    {" "}
-                    {t('Thoughtful')} {" "}
+                    <PiMagnifyingGlass /> {t("Thoughtful")}
                   </button>
                   <button
                     onClick={() => setTone("cautionary")}
-                    className="bg-gray-200 hover:bg-gray-800 hover:text-white text-black rounded-2xl  px-2 py-2 border border-white"
+                    className={` text-black rounded-2xl  px-2 py-2 border border-white
+                      ${tone === "cautionary" ? "bg-sky-500" : "bg-gray-200"}
+                     `}
                   >
-                    {" "}
-                    {t('Cautionary')} {" "}
+                    <IoWarningOutline /> {t("Cautionary")}
                   </button>
                 </div>
 
                 <div className="flex items-center justify-start gap-1 mt-2 ">
                   <button
                     onClick={() => setTone("grieved")}
-                    className="bg-gray-200 hover:bg-gray-800 hover:text-white text-black rounded-2xl  px-2 py-2 border border-white"
+                    className={` text-black rounded-2xl  px-2 py-2 border border-white
+                      ${tone === "grieved" ? "bg-sky-500" : "bg-gray-200"}
+                     `}
                   >
-                    {" "}
-                    {t('Grieved')}  {" "}
+                    <FaRegFaceFrown /> {t("Grieved")}
                   </button>
                   <button
                     onClick={() => setTone("exciting")}
-                    className="bg-gray-200 hover:bg-gray-800 hover:text-white text-black rounded-2xl  px-2 py-2 border border-white"
+                    className={` text-black rounded-2xl  px-2 py-2 border border-white
+                      ${tone === "exciting" ? "bg-sky-500" : "bg-gray-200"}
+                     `}
                   >
-                    {" "}
-                    {t('Exciting')}  {" "}
+                    <FaRegFaceGrinStars /> {t("Exciting")}
                   </button>
                 </div>
 
                 <div className="flex items-center justify-start gap-1 mt-2 ">
                   <button
                     onClick={() => setTone("loving")}
-                    className="bg-gray-200 hover:bg-gray-800 hover:text-white text-black rounded-2xl  px-2 py-2 border border-white"
+                    className={` text-black rounded-2xl  px-2 py-2 border border-white
+                      ${tone === "loving" ? "bg-sky-500" : "bg-gray-200"}
+                     `}
                   >
-                    {" "}
-                    {t('Loving')}  {" "}
+                    <FaRegFaceGrinHearts /> {t("Loving")}
                   </button>
                   <button
                     onClick={() => setTone("confident")}
-                    className="bg-gray-200 hover:bg-gray-800 hover:text-white text-black rounded-2xl  px-2 py-2 border border-white"
+                    className={` text-black rounded-2xl  px-2 py-2 border border-white
+                      ${tone === "confident" ? "bg-sky-500" : "bg-gray-200"}
+                     `}
                   >
-                    {" "}
-                    {t('Confident')}   {" "}
+                    <PiHandshakeLight /> {t("Confident")}
                   </button>
                   <button
                     onClick={() => setTone("surprised")}
-                    className="bg-gray-200 hover:bg-gray-800 hover:text-white text-black rounded-2xl  px-2 py-2 border border-white"
+                    className={` text-black rounded-2xl  px-2 py-2 border border-white
+                      ${tone === "surprised" ? "bg-sky-500" : "bg-gray-200"}
+                     `}
                   >
-                    {" "}
-                    {t('Surprised')} {" "}
+                    <FaRegFaceSurprise /> {t("Surprised")}
                   </button>
                 </div>
               </div>
@@ -295,25 +362,30 @@ const SidebarEmail = ({ isOpen, session }) => {
 
             <div className=" justify-center items-center p-2 text-gray-300 rounded-lg transition-all">
               <div className="relative w-56 ">
-                <h1> {t('Use Emoji')}   </h1>
+                <h1> {t("Use Emoji")} </h1>
                 <div className="flex items-center justify-start gap-1 mt-2 ">
                   <button
                     onClick={() => setUse_emoji("with_emoji")}
                     className={`text-black rounded-2xl  px-2 py-2 border border-white
-                      ${use_emoji === "with_emoji" ?  "bg-sky-500" : "bg-gray-200" }
+                      ${
+                        use_emoji === "with_emoji"
+                          ? "bg-sky-500"
+                          : "bg-gray-200"
+                      }
                       `}
                   >
-                    {" "}
-                    {t('With emoji')}  {" "}
+                    <HiOutlineHandThumbUp />
+                    {t("With emoji")}
                   </button>
                   <button
                     onClick={() => setUse_emoji("no_emoji")}
                     className={`text-black rounded-2xl  px-2 py-2 border border-white
-                       ${use_emoji === "no_emoji" ?  "bg-sky-500" : "bg-gray-200" }
+                       ${
+                         use_emoji === "no_emoji" ? "bg-sky-500" : "bg-gray-200"
+                       }
                       `}
                   >
-                    {" "}
-                    {t('No emoji')}  {" "}
+                    <HiOutlineHandThumbDown /> {t("No emoji")}
                   </button>
                 </div>
               </div>

@@ -1,12 +1,12 @@
 "use client";
-import React, {useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { FaFileUpload } from "react-icons/fa";
 import { BsChatFill } from "react-icons/bs";
 import { BsChatDotsFill } from "react-icons/bs";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-   
+
 import GetDefaultLanguage from "@/lib/getDefaultLanguage";
 
 const Home = ({ session }) => {
@@ -20,9 +20,10 @@ const Home = ({ session }) => {
   }, []);
 
   return (
-    
-    <div className="min-h-screen flex flex-col bg-gray-800 text-white" dir={`${current_language==="ar" ? "rtl":"ltr"}`}>
-      
+    <div
+      className="min-h-screen flex flex-col bg-gray-800 text-white"
+      dir={`${current_language === "ar" ? "rtl" : "ltr"}`}
+    >
       {/* Main Section */}
       <main className="flex-grow bg-gradient-to-b  flex items-center justify-center text-center">
         <div className="container mx-auto px-4">
@@ -32,7 +33,6 @@ const Home = ({ session }) => {
             <p className="rtl:ml-0"> {t("Chat with your files")} </p>
           </h1>
           <p className="text-lg   mb-8">
-          
             {t(
               "Let AI summarize, find information, translate, transcribe, and get citations from your files in seconds"
             )}
@@ -94,10 +94,9 @@ const Home = ({ session }) => {
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             {/* Feature 1 */}
             <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all">
-            
               <h3 className="text-4xl font-bold mb-2 text-gray-800">
                 <FaFileUpload />
-                {t("Upload your Files")} 
+                {t("Upload your Files")}
               </h3>
               <p className="text-black text-2xl ">
                 {t("Easily add your files and start chat them")}
@@ -126,16 +125,16 @@ const Home = ({ session }) => {
                 {t("Get an answer from the document")}
               </p>
             </div>
-          </div> 
-          {session ? ( 
+          </div>
+          {session ? (
             <Link href={`/dashboard`}>
-              <button className="bg-gray-800 text-white font-bold text-2xl px-6 py-3 rounded-xl  hover:bg-gray-600 transition-all">
+              <button className="bg-sky-500 text-white font-bold text-2xl px-6 py-3 rounded-xl  hover:bg-gray-600 transition-all">
                 {t("Start Now")}
               </button>
             </Link>
           ) : (
             <Link href={`/register`}>
-              <button className="bg-sky-600 text-white font-bold text-2xl px-6 py-3 rounded-xl   hover:bg-gray-600 transition-all">
+              <button className="bg-sky-500 text-white font-bold text-2xl px-6 py-3 rounded-xl   hover:bg-gray-600 transition-all">
                 {t("Start Now")}
               </button>
             </Link>

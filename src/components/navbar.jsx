@@ -3,9 +3,9 @@ import { useState, useEffect } from "react";
 import { FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
 import Link from "next/link";
 import Image from "next/image";
- 
+
 import Cookies from "js-cookie";
- 
+
 import { useRouter } from "next/navigation";
 import { GrLanguage } from "react-icons/gr";
 
@@ -44,7 +44,10 @@ const Navbar = ({ session }) => {
   // const email = session?.user?.email;
 
   return (
-    <header className="bg-gray-800 text-white shadow-md sticky top-0 z-50 "  dir={`${current_language==="ar" ? "rtl":"ltr"}`}>
+    <header
+      className="bg-gray-800 text-white shadow-md sticky top-0 z-50 "
+      dir={`${current_language === "ar" ? "rtl" : "ltr"}`}
+    >
       <div className="container mx-auto px-4 py-2 flex justify-between items-center h-15">
         {/* Logo */}
         <Image
@@ -78,7 +81,7 @@ const Navbar = ({ session }) => {
           >
             {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
           </button>
-          <ul 
+          <ul
             className={`flex flex-col md:flex-row md:space-x-6 text-2xl font-bold  justify-center items-center gap-4 ${
               isOpen ? "text-white" : "text-white"
             }`}
@@ -97,8 +100,7 @@ const Navbar = ({ session }) => {
                 href="/register"
                 className="block py-2 px-4 rounded hover:bg-gray-700 md:hover:bg-transparent transition-all"
               >
-                  جديد *
-                {/* {t("Pricing")} */}
+                جديد *{/* {t("Pricing")} */}
               </Link>
             </li>
             <li>
@@ -128,8 +130,13 @@ const Navbar = ({ session }) => {
                       href="/"
                       className="block px-4 py-2 hover:bg-gray-600 transition-colors"
                     >
-                      {" "}
-                      English{" "}
+                      <Image
+                        src="https://flagcdn.com/w40/gb.png"
+                        alt="English"
+                        width={24}
+                        height={16}
+                      />
+                      English
                     </a>
                   </li>
                   <li>
@@ -140,8 +147,13 @@ const Navbar = ({ session }) => {
                       href="/"
                       className="block px-4 py-2 hover:bg-gray-600 transition-colors"
                     >
-                      {" "}
-                      عربي{" "}
+                      <Image
+                        src="https://flagcdn.com/w40/sa.png"
+                        alt="English"
+                        width={24}
+                        height={16}
+                      />
+                      عربي
                     </a>
                   </li>
                 </ul>
@@ -153,7 +165,7 @@ const Navbar = ({ session }) => {
         {session ? (
           <div className="md:flex space-x-4">
             <Link href="/dashboard">
-              <button className="flex items-center justify-center gap-2 px-8 py-2 bg-gray-800 text-xl  text-white  rounded hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 transition-all">
+              <button className="flex items-center justify-center gap-2 px-8 py-2 bg-sky-600 text-xl  text-white  rounded hover:bg-gray-600 focus:ring-4 focus:ring-gray-300 transition-all">
                 {session?.user?.image ? (
                   <Image
                     src={session?.user?.image}
