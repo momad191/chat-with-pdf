@@ -1,4 +1,5 @@
 "use client";
+import { useTheme } from "next-themes";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { FaFileUpload } from "react-icons/fa";
@@ -9,9 +10,15 @@ import Image from "next/image";
 
 import GetDefaultLanguage from "@/lib/getDefaultLanguage";
 
-const Home = ({ session }) => {
-  const t = useTranslations("Home");
 
+const Home = ({ session }) => {
+
+   
+//* ******************* language and Theme ****************************** */
+  const t = useTranslations("Home");
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+//* ********************************************************************* */
   const [current_language, setCurrent_Language] = useState("");
 
   useEffect(() => {
@@ -19,17 +26,38 @@ const Home = ({ session }) => {
     setCurrent_Language(lang);
   }, []);
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+ 
   return (
     <div
-      className="min-h-screen flex flex-col bg-gray-800 text-white"
+    className={`
+      min-h-screen flex flex-col transition-all 
+      ${
+        !mounted
+          ? "bg-gray-800 text-white" // Default (Avoid SSR mismatch)
+          : resolvedTheme === "dark"
+          ? "bg-gray-800 text-white shadow-blue-500/20"
+          : "bg-white text-gray-900 shadow-gray-500/10"
+      }
+    `}
       dir={`${current_language === "ar" ? "rtl" : "ltr"}`}
     >
+
+      {mounted ? t("achievement ahead") : <div className="items-center justify-center">         <Image
+                src="/chatbot.png"
+                width={80}
+                height={40}
+                alt="files-image"
+                className="left-0"
+              /></div>}
       {/* Main Section */}
       <main className="flex-grow bg-gradient-to-b  flex items-center justify-center text-center">
         <div className="container mx-auto px-4">
           {/* Welcome Text */}
 
-          <h1 className=" mt-5 text-5xl md:text-6xl font-bold  mb-4 transform transition-all duration-700 ease-in-out animate-bounce">
+          <h1 className=" mt-5 text-2xl md:text-2xl font-bold  mb-4 transform transition-all duration-700 ease-in-out animate-bounce">
             <p className="rtl:ml-0"> {t("Chat with your files")} </p>
           </h1>
           <p className="text-lg   mb-8">
@@ -93,8 +121,8 @@ const Home = ({ session }) => {
           {/* Features Section */}
           <div className="grid md:grid-cols-3 gap-8 mb-12">
             {/* Feature 1 */}
-            <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all">
-              <h3 className="text-4xl font-bold mb-2 text-gray-800">
+            <div className="bg-white p-1 rounded-lg shadow-lg hover:shadow-2xl transition-all">
+              <h3 className="text-2xl font-bold mb-2 text-gray-800">
                 <FaFileUpload />
                 {t("Upload your Files")}
               </h3>
@@ -104,8 +132,8 @@ const Home = ({ session }) => {
             </div>
 
             {/* Feature 2 */}
-            <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all">
-              <h3 className="text-4xl font-bold mb-2 text-gray-800">
+            <div className="bg-white p-1 rounded-lg shadow-lg hover:shadow-2xl transition-all">
+              <h3 className="text-2xl font-bold mb-2 text-gray-800">
                 <BsChatFill />
                 {t("Ask Questions")}
               </h3>
@@ -115,8 +143,8 @@ const Home = ({ session }) => {
             </div>
 
             {/* Feature 3 */}
-            <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all">
-              <h3 className="text-4xl font-bold mb-2 text-gray-800">
+            <div className="bg-white p-1 rounded-lg shadow-lg hover:shadow-2xl transition-all">
+              <h3 className="text-2xl font-bold mb-2 text-gray-800">
                 <BsChatDotsFill />
 
                 {t("Get Answers")}

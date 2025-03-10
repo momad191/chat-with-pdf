@@ -6,10 +6,11 @@
     "Contact": "تواصل معنا",
     "Dashboard": "لوحة التحكم",
     "Login": "الدخول",
-    "Try for Free": "جرب مجانا"
-  }, 
+    "Try for Free": "جرب مجانا",
+    "Blog":"مدونة" 
+  },  
   "Home": {
-    "Chat with your files": "يساعدك في الدردشة مع ملفاتك الخاصة وكتابة الرسائل",
+    "Chat with your files": " يساعدك في الدردشة مع ملفاتك الخاصة وكتابة الرسائل والبريد الإلكتروني",
     "Let AI summarize, find information, translate, transcribe, and get citations from your files in seconds": "دع الذكاء الاصطناعي يلخص ويجد المعلومات ويترجمها وينسخها ويحصل على اقتباسات من ملفاتك في ثوانٍ",
     "Upload your Files": "قم بتحميل ملفاتك",
     "Easily add your files and start chat them": "أضف ملفاتك بسهولة وابدأ الدردشة معها",
@@ -18,7 +19,8 @@
     "Get Answers": "احصل على الأجوبة",
     "Get an answer from the document": "احصل على الأجوبة من ملفاتك",
     "Start Now": "ابدأ الآن",
-    "Ideal for researchers, students and professionals": "مثالي للباحثين والطلاب والمحترفين"
+    "Ideal for researchers, students and professionals": "مثالي للباحثين والطلاب والمحترفين",
+    "achievement ahead":"الإنجاز في المستقبل"
   },
   "Login": {
     "Login": "الدخول",

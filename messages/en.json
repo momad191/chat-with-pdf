@@ -6,10 +6,11 @@
     "Contact": "Contact",
     "Dashboard": "Dashboard",
     "Login": "Login",
-    "Try for Free": "Try for Free"
+    "Try for Free": "Try for Free",
+     "Blog":"Blog"
   },
   "Home": {
-    "Chat with your files": "Helps you chat with your files and write messages.",
+    "Chat with your files": "Helps you chat with your files and write messages and Emails.",
     "Let AI summarize, find information, translate, transcribe, and get citations from your files in seconds": "Let AI summarize, find information, translate, transcribe, and get citations from your files in seconds",
     "Upload your Files": "Upload your Files",
     "Easily add your files and start chat them": "Easily add your files and start chat and summaraize them.",
@@ -18,7 +19,8 @@
     "Get Answers": "Get Answers",
     "Get an answer from the document": "Get an answer from the document",
     "Start Now": "Start Now",
-    "Ideal for researchers, students and professionals": "Ideal for researchers, students and professionals"
+    "Ideal for researchers, students and professionals": "Ideal for researchers, students and professionals",
+    "achievement ahead":"achievement ahead"
   },
   "Login": {
     "Login": "Login",

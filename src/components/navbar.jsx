@@ -5,17 +5,24 @@ import Link from "next/link";
 import Image from "next/image";
 
 import Cookies from "js-cookie";
-
+  
 import { useRouter } from "next/navigation";
 import { GrLanguage } from "react-icons/gr";
 
 import GetDefaultLanguage from "../lib/getDefaultLanguage";
 
 import { useTranslations } from "next-intl";
+import ThemeToggle from "@/components/ThemeToggle";
+import { useTheme } from "next-themes";
 
 const Navbar = ({ session }) => {
-  const t = useTranslations("NavBar");
 
+  //* ******************* language and Theme ****************************** */
+    const t = useTranslations("NavBar");
+    const { resolvedTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+  //* ********************************************************************* */
+ 
   const [current_language, setCurrent_Language] = useState("");
 
   useEffect(() => {
@@ -43,9 +50,27 @@ const Navbar = ({ session }) => {
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
   // const email = session?.user?.email;
 
+
+    useEffect(() => {
+      setMounted(true);
+    }, []);
+
   return (
     <header
-      className="bg-gray-800 text-white shadow-md sticky top-0 z-50 "
+     
+      className={`
+       
+         shadow-md sticky top-0 z-50
+        ${
+          !mounted
+            ? "bg-gray-800 text-white" // Default (Avoid SSR mismatch)
+            : resolvedTheme === "dark"
+            ? "bg-gray-800 text-white shadow-blue-500/20"
+            : "bg-white text-gray-900 shadow-gray-500/10"
+        }
+      `}
+
+
       dir={`${current_language === "ar" ? "rtl" : "ltr"}`}
     >
       <div className="container mx-auto px-4 py-2 flex justify-between items-center h-15">
@@ -70,9 +95,18 @@ const Navbar = ({ session }) => {
         </button>
         {/* Navbar Links */}
         <nav
-          className={`fixed inset-0 bg-gray-800 md:static md:bg-transparent md:flex md:items-center md:space-x-6 md:w-auto md:h-auto transition-transform duration-300 ${
+          className={`fixed inset-0  md:static md:bg-transparent md:flex md:items-center md:space-x-6 md:w-auto md:h-auto transition-transform duration-300 ${
             isOpen ? "translate-x-0" : "-translate-x-full"
-          } md:translate-x-0`}
+
+          }
+                   ${
+          !mounted
+            ? "bg-gray-800 text-white" // Default (Avoid SSR mismatch)
+            : resolvedTheme === "dark"
+            ? "bg-gray-800 text-white shadow-blue-500/20"
+            : "bg-white text-gray-900 shadow-gray-500/10"
+        }
+          md:translate-x-0`}
         >
           {/* Toggle Button */}
           <button
@@ -82,9 +116,8 @@ const Navbar = ({ session }) => {
             {isOpen ? <FaTimes size={24} /> : <FaBars size={24} />}
           </button>
           <ul
-            className={`flex flex-col md:flex-row md:space-x-6 text-2xl font-bold  justify-center items-center gap-4 ${
-              isOpen ? "text-white" : "text-white"
-            }`}
+            className={`flex flex-col md:flex-row md:space-x-6 text-2xl font-bold  justify-center items-center gap-4
+            `}
           >
             <li>
               <Link
@@ -97,10 +130,10 @@ const Navbar = ({ session }) => {
 
             <li>
               <Link
-                href="/register"
+                href="/blog"
                 className="block py-2 px-4 rounded hover:bg-gray-700 md:hover:bg-transparent transition-all"
               >
-                جديد *{/* {t("Pricing")} */}
+                {t("Blog")} 
               </Link>
             </li>
             <li>
@@ -111,6 +144,9 @@ const Navbar = ({ session }) => {
                 {t("Contact")}
               </Link>
             </li>
+
+
+            <ThemeToggle />
 
             {/* Features with Dropdown */}
             <li className="relative">

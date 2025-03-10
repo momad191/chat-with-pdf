@@ -1,5 +1,6 @@
-import { Inter } from "next/font/google";
 
+import { Inter } from "next/font/google";
+import { ThemeProvider } from "next-themes";
 import "./globals.css";
 
 import { NextIntlClientProvider } from "next-intl";
@@ -33,7 +34,9 @@ export default async function RootLayout({ children }) {
     <html lang={locale}>
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
+        <ThemeProvider attribute="class">
           {children}
+          </ThemeProvider>
         </NextIntlClientProvider>
       </body>
     </html>
